@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAMCIS AI — Gantt Chart</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg: #0d1018;
+    --surface: #141824;
+    --surface2: #1a2030;
+    --surface3: #1f2640;
+    --border: #252d42;
+    --border2: #2e3850;
+    --text: #dde2f0;
+    --text-muted: #5a6285;
+    --text-dim: #8892b0;
+    --accent: #4f6ef7;
+    --danger: #f87171;
+    --row-h: 36px;
+    --label-w: 340px;
+    --header-h: 60px;
+  }
+
+  /* ── LIGHT MODE ── */
+  body.light {
+    --bg: #f4f6fb;
+    --surface: #ffffff;
+    --surface2: #eef1f8;
+    --surface3: #e2e7f4;
+    --border: #d5daea;
+    --border2: #b8c2d8;
+    --text: #1a2040;
+    --text-muted: #7a85aa;
+    --text-dim: #4a5278;
+    --accent: #3a5ce6;
+    --danger: #dc2626;
+  }
+  body.light #json-editor { background: #f8f9fc; color: #1a6b3a; }
+  body.light ::-webkit-scrollbar-track { background: #eef1f8; }
+  body.light ::-webkit-scrollbar-thumb { background: #c8cedf; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    padding: 12px 22px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+  .topbar-title h1 { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; color: var(--text); line-height: 1; }
+  .topbar-title h1 span { color: var(--accent); }
+  .topbar-title .subtitle { font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-top: 3px; }
+  .topbar-pills { display: flex; gap: 7px; flex-wrap: wrap; flex: 1; }
+  .pill { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 11px; font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text-muted); }
+  .pill b { color: var(--text); font-weight: 500; }
+  .topbar-actions { display: flex; gap: 7px; }
+  .btn { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: 7px; font-size: 12px; font-weight: 700; font-family: 'Syne', sans-serif; cursor: pointer; border: none; transition: filter .15s; }
+  .btn:hover { filter: brightness(1.15); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-ghost { background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); }
+  .btn-ghost.active { background: var(--surface3); border-color: var(--accent); color: var(--accent); }
+
+  /* ── GROUP CONTROLS ── */
+  .controls { padding: 9px 22px; display: flex; gap: 7px; flex-wrap: wrap; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .ctrl-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-right: 4px; }
+  .group-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 20px; border: 1.5px solid; cursor: pointer; font-size: 11px; font-weight: 600; transition: opacity .2s, background .2s; user-select: none; white-space: nowrap; }
+  .group-toggle.off { opacity: 0.28; background: transparent !important; }
+  .group-toggle .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── ADD BAR ── */
+  .add-bar { padding: 8px 22px; display: flex; gap: 7px; flex-wrap: wrap; align-items: center; background: var(--bg); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .add-bar input, .add-bar select { background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 5px 9px; font-size: 11px; font-family: 'DM Mono', monospace; outline: none; transition: border-color .2s; }
+  .add-bar input:focus, .add-bar select:focus { border-color: var(--accent); }
+  .add-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); }
+
+  /* ── JSON PANEL ── */
+  .json-panel { background: var(--surface); border-bottom: 1px solid var(--border); display: none; flex-direction: column; flex-shrink: 0; max-height: 380px; }
+  .json-panel.open { display: flex; }
+  .json-panel-hdr { padding: 9px 22px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .json-panel-hdr span { flex: 1; font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
+  .json-err { padding: 5px 22px; font-size: 11px; font-family: 'DM Mono', monospace; color: var(--danger); background: #2a1010; display: none; flex-shrink: 0; }
+  .json-err.show { display: block; }
+  #json-editor { flex: 1; background: #090c12; color: #7ec897; border: none; padding: 14px 22px; font-family: 'DM Mono', monospace; font-size: 11.5px; line-height: 1.75; resize: none; outline: none; overflow-y: auto; tab-size: 2; }
+
+  /* ── GANTT SCROLL ── */
+  .gantt-scroll { flex: 1; overflow: auto; position: relative; }
+  .gantt-inner { min-width: 960px; display: flex; flex-direction: column; min-height: 100%; }
+
+  /* ── HEADER ── */
+  .gantt-header { display: flex; position: sticky; top: 0; z-index: 30; }
+  .g-label-hdr { width: var(--label-w); min-width: var(--label-w); height: var(--header-h); background: var(--surface); border: 1px solid var(--border); border-right: 2px solid var(--border2); padding: 0 14px; display: flex; align-items: center; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); position: sticky; left: 0; z-index: 31; }
+  .g-timeline-hdr { flex: 1; height: var(--header-h); background: var(--surface); border: 1px solid var(--border); border-left: none; overflow: hidden; display: flex; flex-direction: column; }
+  .g-quarters { display: flex; height: 24px; border-bottom: 1px solid var(--border); }
+  .g-quarter { display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); border-right: 1px solid var(--border); }
+  .g-quarter:last-child { border-right: none; }
+  .g-months { display: flex; flex: 1; }
+  .g-month { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; letter-spacing: 0.8px; color: var(--text-muted); border-right: 1px solid var(--border); text-transform: uppercase; }
+  .g-month:last-child { border-right: none; }
+
+  /* ── GANTT BODY ── */
+  .gantt-body { position: relative; flex: 1; }
+
+  .group-hdr-row { display: flex; height: 40px; border-top: 2px solid var(--border2); }
+  .group-hdr-lbl { width: var(--label-w); min-width: var(--label-w); background: var(--surface2); border-right: 2px solid var(--border2); padding: 0 14px; display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; position: sticky; left: 0; z-index: 11; }
+  .gcolor { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .g-meta { margin-left: auto; font-weight: 400; font-size: 9px; color: var(--text-muted); font-family: 'DM Mono', monospace; white-space: nowrap; }
+  .group-hdr-tl { flex: 1; background: var(--surface2); position: relative; overflow: hidden; }
+  .group-tint { position: absolute; inset: 0; opacity: 0.05; }
+
+  .task-row { display: flex; height: var(--row-h); border-top: 1px solid var(--border); }
+  .task-row:hover .task-lbl { background: var(--surface2); }
+
+  .task-lbl { width: var(--label-w); min-width: var(--label-w); padding: 0 14px; display: flex; align-items: center; gap: 7px; border-right: 2px solid var(--border2); background: var(--bg); transition: background .12s; position: sticky; left: 0; z-index: 10; }
+  .task-id-badge { font-size: 9px; font-family: 'DM Mono', monospace; color: var(--text-muted); min-width: 22px; }
+  .task-nm { flex: 1; font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .task-dur-lbl { font-size: 9px; color: var(--text-muted); font-family: 'DM Mono', monospace; white-space: nowrap; }
+  .task-del { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 11px; padding: 0 3px; opacity: 0; transition: opacity .12s, color .12s; }
+  .task-row:hover .task-del { opacity: 1; }
+  .task-del:hover { color: var(--danger); }
+
+  .task-tl { flex: 1; position: relative; overflow: hidden; }
+  .grid-ov { position: absolute; inset: 0; display: flex; pointer-events: none; }
+  .grid-col { flex: 1; border-right: 1px solid var(--border); opacity: 0.35; }
+  .grid-col:last-child { border-right: none; }
+
+  .task-bar { position: absolute; height: 20px; top: 50%; transform: translateY(-50%); border-radius: 4px; cursor: pointer; transition: filter .12s; display: flex; align-items: center; padding: 0 6px; overflow: hidden; min-width: 4px; }
+  .task-bar:hover { filter: brightness(1.3); }
+  .bar-txt { font-size: 10px; font-weight: 600; color: rgba(0,0,0,0.72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.1px; }
+
+  .borrowed-badge { font-size: 8px; color: var(--accent); letter-spacing: 0.5px; background: var(--surface3); border: 1px solid var(--accent); border-radius: 3px; padding: 1px 5px; margin-left: 4px; flex-shrink: 0; }
+
+  #dep-svg { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: visible; }
+
+  /* ── TOOLTIP ── */
+  .tooltip { position: fixed; background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 12px 16px; pointer-events: none; z-index: 9999; opacity: 0; transition: opacity .1s; min-width: 210px; box-shadow: 0 12px 40px rgba(0,0,0,0.65); }
+  .tooltip.show { opacity: 1; }
+  .tt-name { font-size: 13px; font-weight: 700; margin-bottom: 9px; }
+  .tt-row { display: flex; justify-content: space-between; gap: 18px; margin-top: 5px; color: var(--text-muted); font-size: 11px; }
+  .tt-row span:last-child { color: var(--text); font-family: 'DM Mono', monospace; text-align: right; }
+  .tt-deps { margin-top: 8px; font-size: 10px; color: var(--text-muted); line-height: 1.7; }
+  .tt-deps b { color: var(--text-dim); display: block; margin-bottom: 2px; }
+
+  .empty { padding: 60px; text-align: center; color: var(--text-muted); font-size: 13px; }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-title">
+    <h1>CAMCIS <span>AI</span></h1>
+    <div class="subtitle">Plan de mise en œuvre — Gantt interactif</div>
+  </div>
+  <div class="topbar-pills">
+    <div class="pill">Durée: <b id="sum-dur">—</b></div>
+    <div class="pill">Budget: <b id="sum-bud">—</b></div>
+    <div class="pill">Tâches: <b id="sum-tasks">—</b></div>
+    <div class="pill">Groupes actifs: <b id="sum-groups">—</b></div>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn btn-ghost" id="theme-btn" onclick="toggleTheme()" title="Basculer jour/nuit">🌙</button>
+    <button class="btn btn-ghost" id="json-btn" onclick="toggleJson()">{ } JSON</button>
+    <button class="btn btn-ghost" onclick="addGroup()">+ Groupe</button>
+  </div>
+</div>
+
+<!-- GROUP TOGGLES -->
+<div class="controls" id="group-controls"></div>
+
+<!-- ADD BAR -->
+<div class="add-bar">
+  <span class="add-label">Ajouter :</span>
+  <input type="text"   id="inp-name"   placeholder="Nom de la tâche" style="width:175px;" />
+  <select id="inp-group" style="width:175px;"></select>
+  <input type="number" id="inp-start"  placeholder="Mois début" min="1" max="120" style="width:100px;" title="Numéro de mois depuis le début" />
+  <input type="number" id="inp-dur"    placeholder="Durée (mois)" min="1" max="60" style="width:100px;" />
+  <input type="number" id="inp-budget" placeholder="Budget (FCFA)" min="0" style="width:140px;" />
+  <input type="text"   id="inp-deps"   placeholder="Dép. IDs ex: 1,3" style="width:140px;" />
+  <button class="btn btn-primary" onclick="addTask()">+ Ajouter</button>
+</div>
+
+<!-- JSON PANEL -->
+<div class="json-panel" id="json-panel">
+  <div class="json-panel-hdr">
+    <span>// Modifiez le JSON puis appliquez — Ctrl+S pour sauvegarder</span>
+    <button class="btn btn-ghost" onclick="applyJson()" style="font-size:11px;padding:5px 11px;">✓ Appliquer</button>
+    <button class="btn btn-ghost" onclick="toggleJson()" style="font-size:11px;padding:5px 11px;">✕</button>
+  </div>
+  <div class="json-err" id="json-err"></div>
+  <textarea id="json-editor" spellcheck="false"></textarea>
+</div>
+
+<!-- GANTT -->
+<div class="gantt-scroll" id="gantt-scroll">
+  <div class="gantt-inner" id="gantt-inner">
+    <div class="gantt-header">
+      <div class="g-label-hdr">Tâches / Groupes</div>
+      <div class="g-timeline-hdr">
+        <div class="g-quarters" id="g-quarters"></div>
+        <div class="g-months"   id="g-months"></div>
+      </div>
+    </div>
+    <div class="gantt-body" id="gantt-body">
+      <svg id="dep-svg"></svg>
+    </div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// ════════════════════════════════════════════════════════════════════
+//  DATA
+// ════════════════════════════════════════════════════════════════════
+
+const PALETTE = ['#4f9ef8','#f77f5f','#50d08c','#a78bfa','#f9c74f','#38bdf8','#fb923c','#f472b6','#34d399','#e879f9'];
+
+let project = {
+  name: "CAMCIS AI — Plan de mise en œuvre",
+  timeUnit: "mois",
+  budgetUnit: "FCFA",
+  startDate: "2025-01-01",
+  groups: [
+    { id:1, name:"Amélioration de la recette douanière", color:"#4f9ef8", visible:true },
+    { id:2, name:"Détection des fraudes",                color:"#f77f5f", visible:true },
+    { id:3, name:"Amélioration du service usagers",      color:"#50d08c", visible:true },
+    { id:4, name:"Amélioration de la performance",       color:"#a78bfa", visible:true },
+    { id:5, name:"Services communs & Data Warehouse",    color:"#f9c74f", visible:true },
+    { id:6, name:"Gouvernance & Change Management",      color:"#38bdf8", visible:true }
+  ],
+  tasks: [
+    // G1 — Amélioration recette douanière
+    { id: 1, groupId:1, name:"Audit des processus déclaratifs",          start:1,  duration:2, budget:45000000,  deps:[]       },
+    { id: 2, groupId:1, name:"Modèle IA — évaluation risque fiscal",     start:3,  duration:4, budget:130000000, deps:[1,22]   },
+    { id: 3, groupId:1, name:"Intégration valorisation tarifaire",       start:7,  duration:4, budget:200000000, deps:[2]      },
+    { id: 4, groupId:1, name:"Tableau de bord recette temps réel",       start:10, duration:3, budget:85000000,  deps:[3,23]   },
+    { id: 5, groupId:1, name:"Formation agents — évaluation IA",         start:12, duration:2, budget:30000000,  deps:[4]      },
+
+    // G2 — Détection fraudes
+    { id: 6, groupId:2, name:"Collecte & étiquetage données fraudes",    start:1,  duration:3, budget:60000000,  deps:[]       },
+    { id: 7, groupId:2, name:"Modèle ML — détection anomalies",          start:4,  duration:5, budget:185000000, deps:[6,22]   },
+    { id: 8, groupId:2, name:"Système d'alerte temps réel",              start:9,  duration:3, budget:140000000, deps:[7]      },
+    { id: 9, groupId:2, name:"Dashboard enquêteurs / cas fraude",        start:11, duration:3, budget:90000000,  deps:[8,23]   },
+    { id:10, groupId:2, name:"Audit & validation modèle anti-fraude",    start:13, duration:2, budget:50000000,  deps:[9]      },
+
+    // G3 — Service usagers
+    { id:11, groupId:3, name:"Étude UX & cartographie parcours usagers", start:2,  duration:2, budget:35000000,  deps:[]       },
+    { id:12, groupId:3, name:"Refonte portail usagers",                  start:4,  duration:4, budget:110000000, deps:[11]     },
+    { id:13, groupId:3, name:"Chatbot IA — assistance déclarative",      start:7,  duration:4, budget:155000000, deps:[12,22]  },
+    { id:14, groupId:3, name:"Notifications & suivi dossiers mobile",    start:10, duration:3, budget:70000000,  deps:[13]     },
+    { id:15, groupId:3, name:"Évaluation satisfaction & itération",      start:13, duration:2, budget:25000000,  deps:[14]     },
+
+    // G4 — Performance
+    { id:16, groupId:4, name:"Benchmark performances actuelles",         start:1,  duration:2, budget:25000000,  deps:[]       },
+    { id:17, groupId:4, name:"Optimisation workflows déclaration",       start:3,  duration:4, budget:95000000,  deps:[16,22]  },
+    { id:18, groupId:4, name:"Automatisation contrôles documentaires",   start:6,  duration:5, budget:175000000, deps:[17]     },
+    { id:19, groupId:4, name:"KPI & reporting automatisé",               start:10, duration:3, budget:65000000,  deps:[18,23]  },
+    { id:20, groupId:4, name:"Déploiement bureaux pilotes",              start:12, duration:4, budget:120000000, deps:[19]     },
+
+    // G5 — Services communs & DWH
+    { id:21, groupId:5, name:"Architecture Data Warehouse cible",        start:1,  duration:3, budget:90000000,  deps:[]       },
+    { id:22, groupId:5, name:"Pipelines ETL & intégration sources",      start:3,  duration:5, budget:210000000, deps:[21]     },
+    { id:23, groupId:5, name:"API centrale — couche accès données",      start:7,  duration:4, budget:115000000, deps:[22]     },
+    { id:24, groupId:5, name:"Master Data Management (MDM)",             start:6,  duration:4, budget:130000000, deps:[22]     },
+    { id:25, groupId:5, name:"Sécurité & conformité données",            start:5,  duration:6, budget:95000000,  deps:[21]     },
+
+    // G6 — Gouvernance
+    { id:26, groupId:6, name:"Comité de pilotage & charte projet",       start:1,  duration:1, budget:15000000,  deps:[]       },
+    { id:27, groupId:6, name:"Plan communication & conduite changement", start:2,  duration:3, budget:40000000,  deps:[26]     },
+    { id:28, groupId:6, name:"Formation leads & chefs de projet",        start:3,  duration:2, budget:35000000,  deps:[26]     },
+    { id:29, groupId:6, name:"Audits intermédiaires (M6, M12)",          start:6,  duration:1, budget:20000000,  deps:[26]     },
+    { id:30, groupId:6, name:"Clôture & rapport final projet",           start:15, duration:2, budget:28000000,  deps:[5,10,15,20,25] }
+  ]
+};
+
+let nextTaskId  = 31;
+let nextGroupId = 7;
+
+// ════════════════════════════════════════════════════════════════════
+//  SMART VISIBILITY
+//  If a group is toggled OFF, its tasks can still appear if required
+//  by a task in a visible group (transitively).
+// ════════════════════════════════════════════════════════════════════
+
+function getVisibleTasks() {
+  const visGids = new Set(project.groups.filter(g=>g.visible).map(g=>g.id));
+  const direct  = new Set(project.tasks.filter(t=>visGids.has(t.groupId)).map(t=>t.id));
+
+  // expand deps transitively
+  const required = new Set(direct);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    project.tasks.forEach(t => {
+      if (required.has(t.id)) {
+        t.deps.forEach(d => { if (!required.has(d)) { required.add(d); changed = true; } });
+      }
+    });
+  }
+  return project.tasks.filter(t => required.has(t.id));
+}
+
+function isBorrowed(taskId) {
+  const visGids = new Set(project.groups.filter(g=>g.visible).map(g=>g.id));
+  const t = project.tasks.find(t=>t.id===taskId);
+  return t && !visGids.has(t.groupId);
+}
+
+// ════════════════════════════════════════════════════════════════════
+//  DEPENDENCY-AWARE SCHEDULING
+//  Computes each task's effective start based on its active deps.
+//  Does NOT mutate project data — returns a Map<taskId, effectiveStart>.
+// ════════════════════════════════════════════════════════════════════
+
+function computeSchedule(visibleTasks) {
+  // Build a lookup by id for visible tasks only
+  const vtById = {};
+  visibleTasks.forEach(t => { vtById[t.id] = t; });
+
+  const scheduled = {}; // id -> effective start (1-based month)
+  const visited   = {}; // for cycle detection
+
+  function solve(id) {
+    if (scheduled[id] !== undefined) return scheduled[id];
+    if (visited[id]) { scheduled[id] = 1; return 1; } // cycle guard
+    visited[id] = true;
+
+    const task = vtById[id];
+    if (!task) { scheduled[id] = 1; return 1; }
+
+    // Only consider deps that are themselves visible
+    const activeDeps = (task.deps || []).filter(d => vtById[d] !== undefined);
+
+    if (!activeDeps.length) {
+      // No active deps: keep its original authored start (relative anchor)
+      scheduled[id] = task.start;
+      return task.start;
+    }
+
+    // Start immediately after the latest dependency finishes
+    let depEnd = 0;
+    activeDeps.forEach(depId => {
+      const depStart = solve(depId);
+      const depTask  = vtById[depId];
+      const end = depStart + (depTask ? depTask.duration : 0);
+      if (end > depEnd) depEnd = end;
+    });
+
+    scheduled[id] = depEnd; // start at the month right after last dep ends
+    return scheduled[id];
+  }
+
+  visibleTasks.forEach(t => solve(t.id));
+  return scheduled;
+}
+
+
+
+function getTotalMonths(schedule, vt) {
+  if (!vt || !vt.length) return 18;
+  let mx = 0;
+  vt.forEach(t => {
+    const s = schedule ? (schedule[t.id] || t.start) : t.start;
+    const e = s + t.duration;
+    if (e > mx) mx = e;
+  });
+  return Math.max(mx + 1, 12);
+}
+
+function monthLabel(m) {
+  const base = new Date(project.startDate);
+  const d = new Date(base.getFullYear(), base.getMonth() + m - 1, 1);
+  return d.toLocaleString('fr-FR',{month:'short'}).replace('.','').toUpperCase();
+}
+
+function getQuarters(totalMonths) {
+  const qs = [];
+  let cur = null, cnt = 0;
+  for (let m = 1; m <= totalMonths; m++) {
+    const base = new Date(project.startDate);
+    const d = new Date(base.getFullYear(), base.getMonth() + m - 1, 1);
+    const q = `T${Math.ceil((d.getMonth()+1)/3)} ${d.getFullYear()}`;
+    if (q !== cur) { if (cur) qs.push({label:cur, count:cnt}); cur=q; cnt=1; } else cnt++;
+  }
+  if (cur) qs.push({label:cur, count:cnt});
+  return qs;
+}
+
+function formatBudget(n) {
+  return n.toLocaleString('fr-FR') + '\u202f' + project.budgetUnit;
+}
+
+// ════════════════════════════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════════════════════════════
+
+function render() {
+  const vt = getVisibleTasks();
+  const schedule = computeSchedule(vt);
+  renderGroupControls();
+  renderSummary(schedule, vt);
+  renderGantt(schedule, vt);
+}
+
+function renderGroupControls() {
+  const ctrl = document.getElementById('group-controls');
+  ctrl.innerHTML = '<span class="ctrl-label">Groupes :</span>';
+  project.groups.forEach(g => {
+    const btn = document.createElement('div');
+    btn.className = 'group-toggle' + (g.visible ? '' : ' off');
+    btn.style.borderColor = g.color;
+    btn.style.background  = g.visible ? g.color+'22' : 'transparent';
+    btn.style.color       = g.visible ? g.color : 'var(--text-muted)';
+    btn.innerHTML = `<span class="dot" style="background:${g.color}"></span>${g.name}`;
+    btn.onclick = () => { g.visible = !g.visible; render(); };
+    ctrl.appendChild(btn);
+  });
+  // populate group select
+  const sel = document.getElementById('inp-group');
+  sel.innerHTML = '';
+  project.groups.forEach(g => {
+    const o = document.createElement('option');
+    o.value = g.id; o.textContent = g.name;
+    sel.appendChild(o);
+  });
+}
+
+function renderSummary(schedule, vt) {
+  if (!vt) vt = getVisibleTasks();
+  if (!schedule) schedule = computeSchedule(vt);
+  const bud = vt.reduce((s,t)=>s+t.budget,0);
+  let minS=Infinity, maxE=0;
+  vt.forEach(t => {
+    const s = schedule[t.id] || t.start;
+    if(s<minS) minS=s;
+    const e=s+t.duration;
+    if(e>maxE) maxE=e;
+  });
+  const dur = vt.length ? (maxE - minS) : 0;
+  const visG = project.groups.filter(g => g.visible && vt.some(t=>t.groupId===g.id));
+  document.getElementById('sum-dur').textContent    = dur ? `${dur} ${project.timeUnit}` : '—';
+  document.getElementById('sum-bud').textContent    = bud ? formatBudget(bud) : '—';
+  document.getElementById('sum-tasks').textContent  = vt.length;
+  document.getElementById('sum-groups').textContent = visG.length;
+}
+
+function renderGantt(schedule, vt) {
+  const body = document.getElementById('gantt-body');
+  const svg  = document.getElementById('dep-svg');
+
+  // clear rows
+  Array.from(body.children).forEach(c => { if (c!==svg) body.removeChild(c); });
+  svg.innerHTML = '';
+
+  if (!vt) vt = getVisibleTasks();
+  if (!schedule) schedule = computeSchedule(vt);
+  const totalM = getTotalMonths(schedule, vt);
+
+  renderHeader(totalM);
+
+  if (!vt.length) {
+    const em = document.createElement('div');
+    em.className = 'empty'; em.textContent = 'Aucune tâche visible.';
+    body.insertBefore(em, svg); return;
+  }
+
+  const taskRowMap = {};
+  let yOff = 0;
+
+  // group tasks by their group, preserving group order
+  const visGroups = project.groups.filter(g => vt.some(t=>t.groupId===g.id));
+
+  visGroups.forEach(group => {
+    const gTasks = vt.filter(t=>t.groupId===group.id);
+    if (!gTasks.length) return;
+
+    const gBud = gTasks.reduce((s,t)=>s+t.budget,0);
+    const groupIsOff = !group.visible; // shown only because borrowed
+
+    const ghRow = document.createElement('div');
+    ghRow.className = 'group-hdr-row';
+    ghRow.style.opacity = groupIsOff ? '0.55' : '1';
+
+    const ghLbl = document.createElement('div');
+    ghLbl.className = 'group-hdr-lbl';
+    ghLbl.innerHTML = `
+      <span class="gcolor" style="background:${group.color}"></span>
+      <span style="color:${group.color};flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${group.name}">${group.name}</span>
+      ${groupIsOff ? '<span style="font-size:8px;color:var(--accent);background:var(--surface3);border:1px solid var(--accent);border-radius:3px;padding:1px 5px;margin-right:4px;flex-shrink:0;">REQUIS</span>' : ''}
+      <span class="g-meta">${gTasks.length} tâches · ${formatBudget(gBud)}</span>`;
+
+    const ghTl = document.createElement('div');
+    ghTl.className = 'group-hdr-tl';
+    const tint = document.createElement('div');
+    tint.className = 'group-tint'; tint.style.background = group.color;
+    ghTl.appendChild(tint);
+
+    ghRow.appendChild(ghLbl); ghRow.appendChild(ghTl);
+    body.insertBefore(ghRow, svg);
+    yOff += 40;
+
+    gTasks.forEach(task => {
+      const row = document.createElement('div');
+      row.className = 'task-row';
+
+      const borrowed = isBorrowed(task.id);
+      const effStart = schedule[task.id] || task.start;
+
+      const lbl = document.createElement('div');
+      lbl.className = 'task-lbl';
+      lbl.innerHTML = `
+        <span class="task-id-badge">#${task.id}</span>
+        <span class="task-nm" title="${task.name}">${task.name}</span>
+        ${borrowed ? '<span class="borrowed-badge">emprunté</span>' : ''}
+        <span class="task-dur-lbl">M${effStart}+${task.duration}</span>
+        <button class="task-del" onclick="deleteTask(${task.id})">✕</button>`;
+
+      const tl = document.createElement('div');
+      tl.className = 'task-tl';
+
+      // grid
+      const grid = document.createElement('div');
+      grid.className = 'grid-ov';
+      for (let i=0;i<totalM;i++) {
+        const gc = document.createElement('div'); gc.className = 'grid-col'; grid.appendChild(gc);
+      }
+      tl.appendChild(grid);
+
+      // bar — use effective scheduled start
+      const sf = (effStart - 1) / totalM;
+      const ef = (effStart - 1 + task.duration) / totalM;
+      const bar = document.createElement('div');
+      bar.className = 'task-bar';
+      bar.style.left    = (sf*100)+'%';
+      bar.style.width   = Math.max((ef-sf)*100, 0.3)+'%';
+      bar.style.background = group.color;
+      bar.style.opacity = borrowed ? '0.55' : '1';
+      bar.innerHTML = `<span class="bar-txt">${task.name}</span>`;
+      bar.addEventListener('mouseenter', e => showTooltip(e, task, group, effStart));
+      bar.addEventListener('mousemove',  e => moveTooltip(e));
+      bar.addEventListener('mouseleave', hideTooltip);
+      tl.appendChild(bar);
+
+      row.appendChild(lbl); row.appendChild(tl);
+      body.insertBefore(row, svg);
+
+      taskRowMap[task.id] = { y: yOff+18, sf, ef, color: group.color };
+      yOff += 36;
+    });
+  });
+
+  // draw deps
+  const ganttEl = document.getElementById('gantt-inner');
+  const ganttRect = ganttEl.getBoundingClientRect();
+  const LW = 340;
+  const TW = Math.max(ganttRect.width - LW - 2, 400);
+
+  svg.setAttribute('width', ganttRect.width);
+  svg.setAttribute('height', yOff);
+  svg.style.width  = ganttRect.width + 'px';
+  svg.style.height = yOff + 'px';
+
+  const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+  svg.appendChild(defs);
+
+  vt.forEach(task => {
+    if (!task.deps || !task.deps.length) return;
+    const to = taskRowMap[task.id];
+    if (!to) return;
+    task.deps.forEach((depId, di) => {
+      const from = taskRowMap[depId];
+      if (!from) return;
+      const mid = `a${depId}_${task.id}_${di}`;
+      const mk = document.createElementNS('http://www.w3.org/2000/svg','marker');
+      mk.setAttribute('id',mid); mk.setAttribute('markerWidth','7'); mk.setAttribute('markerHeight','7');
+      mk.setAttribute('refX','6'); mk.setAttribute('refY','3'); mk.setAttribute('orient','auto');
+      const poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      poly.setAttribute('points','0 0, 7 3, 0 6');
+      poly.setAttribute('fill', from.color); poly.setAttribute('opacity','0.65');
+      mk.appendChild(poly); defs.appendChild(mk);
+
+      const x1 = LW + from.ef * TW;
+      const y1 = from.y;
+      const x2 = LW + to.sf * TW;
+      const y2 = to.y;
+      const bend = Math.min(50, Math.abs(x2-x1)*0.45 + 10);
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', `M ${x1} ${y1} C ${x1+bend} ${y1}, ${x2-bend} ${y2}, ${x2} ${y2}`);
+      path.setAttribute('stroke', from.color);
+      path.setAttribute('stroke-width','1.5');
+      path.setAttribute('stroke-dasharray','5,3');
+      path.setAttribute('fill','none');
+      path.setAttribute('opacity','0.5');
+      path.setAttribute('marker-end', `url(#${mid})`);
+      svg.appendChild(path);
+    });
+  });
+}
+
+function renderHeader(totalM) {
+  const qEl = document.getElementById('g-quarters');
+  const mEl = document.getElementById('g-months');
+  qEl.innerHTML = ''; mEl.innerHTML = '';
+
+  getQuarters(totalM).forEach(q => {
+    const el = document.createElement('div');
+    el.className = 'g-quarter';
+    el.textContent = q.label;
+    el.style.flex = q.count;
+    qEl.appendChild(el);
+  });
+  for (let m=1;m<=totalM;m++) {
+    const el = document.createElement('div');
+    el.className = 'g-month';
+    el.textContent = monthLabel(m);
+    mEl.appendChild(el);
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════
+//  TOOLTIP
+// ════════════════════════════════════════════════════════════════════
+
+function showTooltip(ev, task, group, effStart) {
+  const tt = document.getElementById('tooltip');
+  const depLines = task.deps.length ? task.deps.map(d => {
+    const dt = project.tasks.find(t=>t.id===d);
+    return `#${d}${dt ? ' '+dt.name : ''}`;
+  }).join('<br>') : '—';
+
+  tt.innerHTML = `
+    <div class="tt-name" style="color:${group.color}">${task.name}</div>
+    <div class="tt-row"><span>Groupe</span><span>${group.name}</span></div>
+    <div class="tt-row"><span>Début</span><span>M+${effStart}</span></div>
+    <div class="tt-row"><span>Durée</span><span>${task.duration} ${project.timeUnit}</span></div>
+    <div class="tt-row"><span>Fin</span><span>M+${effStart+task.duration-1}</span></div>
+    <div class="tt-row"><span>Budget</span><span>${formatBudget(task.budget)}</span></div>
+    <div class="tt-deps"><b>Dépendances :</b>${depLines}</div>`;
+  tt.classList.add('show');
+  moveTooltip(ev);
+}
+function moveTooltip(ev) {
+  const tt = document.getElementById('tooltip');
+  tt.style.left = Math.min(ev.clientX+18, window.innerWidth-230)+'px';
+  tt.style.top  = Math.min(ev.clientY+18, window.innerHeight-220)+'px';
+}
+function hideTooltip() { document.getElementById('tooltip').classList.remove('show'); }
+
+// ════════════════════════════════════════════════════════════════════
+//  ACTIONS
+// ════════════════════════════════════════════════════════════════════
+
+function deleteTask(id) {
+  project.tasks = project.tasks.filter(t=>t.id!==id);
+  project.tasks.forEach(t => { t.deps = t.deps.filter(d=>d!==id); });
+  render();
+}
+
+function addTask() {
+  const name   = document.getElementById('inp-name').value.trim();
+  const gid    = parseInt(document.getElementById('inp-group').value);
+  const start  = parseInt(document.getElementById('inp-start').value);
+  const dur    = parseInt(document.getElementById('inp-dur').value);
+  const budget = parseFloat(document.getElementById('inp-budget').value)||0;
+  const dRaw   = document.getElementById('inp-deps').value.trim();
+  const deps   = dRaw ? dRaw.split(',').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n)) : [];
+  if (!name||!start||!dur) { alert('Nom, mois de début et durée sont requis.'); return; }
+  project.tasks.push({ id:nextTaskId++, groupId:gid, name, start, duration:dur, budget, deps });
+  document.getElementById('inp-name').value='';
+  document.getElementById('inp-budget').value='';
+  document.getElementById('inp-deps').value='';
+  render();
+}
+
+function addGroup() {
+  const name = prompt('Nom du nouveau groupe :');
+  if (!name) return;
+  const color = PALETTE[nextGroupId % PALETTE.length];
+  project.groups.push({ id:nextGroupId++, name, color, visible:true });
+  render();
+}
+
+// ════════════════════════════════════════════════════════════════════
+//  JSON PANEL
+// ════════════════════════════════════════════════════════════════════
+
+function toggleJson() {
+  const panel = document.getElementById('json-panel');
+  const btn   = document.getElementById('json-btn');
+  const open  = !panel.classList.contains('open');
+  panel.classList.toggle('open', open);
+  btn.classList.toggle('active', open);
+  if (open) {
+    document.getElementById('json-editor').value = JSON.stringify(project, null, 2);
+    document.getElementById('json-err').classList.remove('show');
+  }
+}
+
+function applyJson() {
+  const errEl = document.getElementById('json-err');
+  try {
+    const p = JSON.parse(document.getElementById('json-editor').value);
+    if (!Array.isArray(p.groups) || !Array.isArray(p.tasks))
+      throw new Error('"groups" et "tasks" doivent être des tableaux.');
+    p.groups.forEach(g => {
+      if (!g.id || !g.name) throw new Error(`Groupe invalide : ${JSON.stringify(g)}`);
+      if (g.visible===undefined) g.visible=true;
+    });
+    p.tasks.forEach(t => {
+      if (!t.id || !t.name || !t.start || !t.duration)
+        throw new Error(`Tâche invalide : ${JSON.stringify(t)}`);
+      if (!t.deps) t.deps=[];
+      if (!t.budget) t.budget=0;
+    });
+    project = p;
+    nextTaskId  = Math.max(...project.tasks.map(t=>t.id),  nextTaskId-1) + 1;
+    nextGroupId = Math.max(...project.groups.map(g=>g.id), nextGroupId-1) + 1;
+    errEl.classList.remove('show');
+    render();
+  } catch(e) {
+    errEl.textContent = '⚠ Erreur : ' + e.message;
+    errEl.classList.add('show');
+  }
+}
+
+document.getElementById('json-editor').addEventListener('keydown', e => {
+  if ((e.ctrlKey||e.metaKey) && e.key==='s') { e.preventDefault(); applyJson(); }
+  if (e.key==='Tab') {
+    e.preventDefault();
+    const ta=e.target, s=ta.selectionStart, end=ta.selectionEnd;
+    ta.value=ta.value.substring(0,s)+'  '+ta.value.substring(end);
+    ta.selectionStart=ta.selectionEnd=s+2;
+  }
+});
+
+// ════════════════════════════════════════════════════════════════════
+//  THEME TOGGLE
+// ════════════════════════════════════════════════════════════════════
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  const btn = document.getElementById('theme-btn');
+  btn.textContent = isLight ? '🌙' : '☀️';
+  btn.title = isLight ? 'Passer en mode nuit' : 'Passer en mode jour';
+  localStorage.setItem('gantt-theme', isLight ? 'light' : 'dark');
+}
+
+// restore saved theme
+(function() {
+  const saved = localStorage.getItem('gantt-theme');
+  if (saved === 'light') {
+    document.body.classList.add('light');
+    // btn not yet rendered — set after DOM is ready
+    window.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('theme-btn');
+      if (btn) { btn.textContent = '☀️'; btn.title = 'Passer en mode nuit'; }
+    });
+  }
+})();
+
+// re-render on resize to fix SVG sizing
+let resizeTimer;
+window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer=setTimeout(render,120); });
+
+// ════════════════════════════════════════════════════════════════════
+render();
+</script>
+</body>
+</html>
