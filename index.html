@@ -220,6 +220,186 @@
   ::-webkit-scrollbar { width: 5px; height: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── PRINT INFO BLOCK (hidden on screen, shown when printing) ── */
+  .bar-print-info { display: none; }
+
+  /* ════════════════════════════════════════════════════════════════
+     PRINT STYLES
+     ════════════════════════════════════════════════════════════════ */
+  @media print {
+    /* Force light / paper look regardless of user theme */
+    body, body.light {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface2: #f2f4f8;
+      --surface3: #e8ecf4;
+      --border: #d0d5e8;
+      --border2: #b0b8d0;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --text-dim: #374151;
+      --accent: #2563eb;
+      background: #fff !important;
+      color: #111827 !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    /* Remove UI chrome */
+    .topbar-actions,
+    .scenario-bar,
+    .controls,
+    .add-bar,
+    .json-panel,
+    .tooltip,
+    .task-del,
+    .borrowed-badge { display: none !important; }
+
+    /* Un-clip everything so full chart prints */
+    body, .gantt-scroll, .gantt-inner, .gantt-body, .task-tl {
+      overflow: visible !important;
+      height: auto !important;
+      max-height: none !important;
+      flex-shrink: 0 !important;
+    }
+
+    .gantt-scroll { flex: none; }
+
+    /* Sticky headers become static */
+    .gantt-header, .g-label-hdr, .task-lbl, .group-hdr-lbl { position: static !important; }
+
+    /* Topbar: minimal print header */
+    .topbar {
+      padding: 8px 16px;
+      border-bottom: 2px solid #111;
+      margin-bottom: 4px;
+      background: #fff !important;
+    }
+    .topbar-title h1 { font-size: 14px; color: #111 !important; }
+    .topbar-title h1 span { color: #2563eb !important; }
+    .topbar-title .subtitle { color: #666 !important; }
+    .topbar-pills .pill {
+      background: #f2f4f8 !important;
+      border-color: #ccc !important;
+      color: #444 !important;
+    }
+    .topbar-pills .pill b { color: #111 !important; }
+    .topbar-pills .pill.highlight { border-color: #2563eb !important; }
+    .topbar-pills .pill.highlight b { color: #2563eb !important; }
+
+    /* Group header rows */
+    .group-hdr-row { background: #f2f4f8 !important; break-inside: avoid; }
+    .group-hdr-lbl { background: #f2f4f8 !important; color: #111 !important; }
+
+    /* Task rows: taller to accommodate info block */
+    .task-row {
+      height: auto !important;
+      min-height: 64px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .task-lbl {
+      background: #fff !important;
+      min-height: 64px;
+      height: auto !important;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      align-items: flex-start !important;
+    }
+    .task-nm { white-space: normal !important; font-size: 11px !important; }
+    .task-ref { font-size: 8px !important; }
+
+    /* Grid lines in timeline */
+    .grid-col { border-color: #e0e4ef !important; opacity: 1 !important; }
+
+    /* ── The task bar in print mode ── */
+    .task-bar {
+      /* Expand to fill most of the row height */
+      height: calc(100% - 8px) !important;
+      min-height: 56px !important;
+      top: 4px !important;
+      transform: none !important;
+      border-radius: 5px !important;
+      overflow: visible !important;
+      align-items: flex-start !important;
+      padding: 5px 7px !important;
+      /* Force color printing */
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* Hide the compact screen label */
+    .bar-txt { display: none !important; }
+
+    /* Show the rich info block */
+    .bar-print-info {
+      display: flex !important;
+      flex-direction: column;
+      gap: 2px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .bar-print-info .bpi-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .bar-print-info .bpi-ref {
+      font-family: 'DM Mono', monospace;
+      font-size: 7.5px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      background: rgba(0,0,0,0.18);
+      border-radius: 2px;
+      padding: 0px 4px;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .bar-print-info .bpi-dates {
+      font-family: 'DM Mono', monospace;
+      font-size: 7.5px;
+      color: rgba(255,255,255,0.9);
+      margin-top: 1px;
+    }
+
+    .bar-print-info .bpi-budget {
+      font-family: 'DM Mono', monospace;
+      font-size: 7.5px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.95);
+      margin-top: 1px;
+    }
+
+    .bar-print-info .bpi-deps {
+      font-family: 'DM Mono', monospace;
+      font-size: 7px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 1px;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    /* Header colours */
+    .g-quarter { color: #2563eb !important; }
+    .g-month   { color: #4b5563 !important; }
+    .g-label-hdr { color: #6b7280 !important; background: #fff !important; }
+
+    /* SVG dep arrows: print-friendly */
+    #dep-svg path { opacity: 0.6 !important; }
+    #dep-svg polygon { opacity: 0.7 !important; }
+
+    /* Page setup */
+    @page { size: A3 landscape; margin: 12mm 10mm; }
+  }
 </style>
 </head>
 <body>
@@ -239,6 +419,7 @@
   </div>
   <div class="topbar-actions">
     <button class="btn btn-ghost" id="theme-btn" onclick="toggleTheme()" title="Basculer jour/nuit">🌙</button>
+    <button class="btn btn-ghost" onclick="window.print()" title="Imprimer">🖨 Imprimer</button>
     <button class="btn btn-ghost" id="json-btn" onclick="toggleJson()">{ } JSON</button>
     <button class="btn btn-ghost" onclick="addGroup()">+ Groupe</button>
   </div>
@@ -709,7 +890,23 @@ function renderGantt(schedule, vt) {
       bar.style.width      = Math.max((ef - sf) * 100, 0.3) + '%';
       bar.style.background = group.color;
       bar.style.opacity    = borrowed ? '0.5' : '1';
-      bar.innerHTML = `<span class="bar-txt">${task.name}</span>`;
+
+      // Build dep list for print
+      const depNames = (task.deps || []).map(d => {
+        const dt = project.tasks.find(t => t.id === d);
+        return dt ? ('#' + d + ' ' + dt.name) : ('#' + d);
+      }).join(', ');
+
+      bar.innerHTML =
+        '<span class="bar-txt">' + task.name + '</span>' +
+        '<span class="bar-print-info">' +
+          '<span class="bpi-name">' + task.name + '</span>' +
+          (task.ref ? '<span class="bpi-ref">' + task.ref + '</span>' : '') +
+          '<span class="bpi-dates">M+' + effStart + ' → M+' + (effStart + task.duration - 1) + ' (' + task.duration + ' mois)</span>' +
+          '<span class="bpi-budget">' + formatBudget(task.budget) + '</span>' +
+          (depNames ? '<span class="bpi-deps">↳ ' + depNames + '</span>' : '') +
+        '</span>';
+
       bar.addEventListener('mouseenter', e => showTooltip(e, task, group, effStart));
       bar.addEventListener('mousemove',  e => moveTooltip(e));
       bar.addEventListener('mouseleave', hideTooltip);
