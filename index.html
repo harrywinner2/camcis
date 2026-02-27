@@ -300,6 +300,95 @@
 </style>
 </head>
 <body>
+<script>
+(function(){
+  var PASSWORD = 'DOUANE2035';
+  var KEY = 'camcis_auth';
+  if (sessionStorage.getItem(KEY) === '1') return;
+
+  // Build lock screen
+  var overlay = document.createElement('div');
+  overlay.id = 'auth-overlay';
+  overlay.style.cssText = [
+    'position:fixed;inset:0;z-index:99999',
+    'background:#0d1018',
+    'display:flex;flex-direction:column;align-items:center;justify-content:center',
+    'font-family:Syne,sans-serif',
+    'gap:0',
+  ].join(';');
+
+  overlay.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;gap:28px;width:100%;max-width:400px;padding:0 24px">
+      <div style="text-align:center">
+        <div style="font-size:28px;font-weight:800;letter-spacing:-0.5px;color:#dde2f0">
+          CAMCIS <span style="color:#4f6ef7">AI</span>
+        </div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:#3a4468;margin-top:6px">
+          Plan de mise en œuvre — Accès restreint
+        </div>
+      </div>
+
+      <div style="width:100%;background:#141824;border:1px solid #252d42;border-radius:12px;padding:28px 28px 24px">
+        <div style="font-size:12px;color:#5a6285;margin-bottom:16px;text-align:center;letter-spacing:.5px">
+          Saisissez le mot de passe pour accéder au chronogramme
+        </div>
+        <input id="auth-input" type="password" placeholder="Mot de passe"
+          style="width:100%;background:#0d1018;border:1.5px solid #252d42;border-radius:8px;
+                 padding:12px 16px;font-size:15px;font-family:DM Mono,monospace;
+                 color:#dde2f0;outline:none;box-sizing:border-box;letter-spacing:2px;
+                 transition:border-color .2s"
+          autocomplete="off" autocapitalize="off" spellcheck="false" />
+        <div id="auth-err" style="color:#f87171;font-size:11px;margin-top:10px;text-align:center;min-height:16px;opacity:0;transition:opacity .2s"></div>
+        <button id="auth-btn"
+          style="margin-top:12px;width:100%;background:#4f6ef7;border:none;border-radius:8px;
+                 padding:12px;font-size:13px;font-weight:700;font-family:Syne,sans-serif;
+                 color:#fff;cursor:pointer;letter-spacing:.3px;transition:filter .15s">
+          Accéder →
+        </button>
+      </div>
+
+      <div style="font-size:9px;color:#2a3050;text-transform:uppercase;letter-spacing:1.5px">
+        Direction Générale des Douanes · Cameroun
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  // Block scroll on the page behind
+  document.body.style.overflow = 'hidden';
+
+  var inp = document.getElementById('auth-input');
+  var btn = document.getElementById('auth-btn');
+  var err = document.getElementById('auth-err');
+
+  inp.addEventListener('focus', function(){ inp.style.borderColor='#4f6ef7'; });
+  inp.addEventListener('blur',  function(){ inp.style.borderColor='#252d42'; });
+  btn.addEventListener('mouseenter', function(){ btn.style.filter='brightness(1.15)'; });
+  btn.addEventListener('mouseleave', function(){ btn.style.filter=''; });
+
+  function attempt() {
+    if (inp.value === PASSWORD) {
+      sessionStorage.setItem(KEY, '1');
+      overlay.style.transition = 'opacity .4s';
+      overlay.style.opacity = '0';
+      setTimeout(function(){ overlay.remove(); document.body.style.overflow=''; }, 400);
+    } else {
+      err.textContent = 'Mot de passe incorrect. Veuillez réessayer.';
+      err.style.opacity = '1';
+      inp.value = '';
+      inp.style.borderColor = '#f87171';
+      setTimeout(function(){ inp.style.borderColor='#252d42'; err.style.opacity='0'; }, 2200);
+    }
+  }
+
+  btn.addEventListener('click', attempt);
+  inp.addEventListener('keydown', function(e){ if (e.key==='Enter') attempt(); });
+
+  // Auto-focus after a tick so the overlay is in DOM
+  setTimeout(function(){ inp.focus(); }, 80);
+})();
+</script>
+
 
 <!-- TOPBAR -->
 <div class="topbar">
@@ -452,7 +541,7 @@ let project = {
         19,
         20
       ],
-      "label": "Scénario A + B"
+      "label": "Scénario B"
     },
     {
       "id": "C",
@@ -495,7 +584,7 @@ let project = {
         32,
         33
       ],
-      "label": "Scénario A + B + C"
+      "label": "Scénario C"
     }
   ],
   "groups": [
