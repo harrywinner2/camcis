@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,19 +24,10 @@
     --header-h: 60px;
   }
 
-  /* ── LIGHT MODE ── */
   body.light {
-    --bg: #f4f6fb;
-    --surface: #ffffff;
-    --surface2: #eef1f8;
-    --surface3: #e2e7f4;
-    --border: #d5daea;
-    --border2: #b8c2d8;
-    --text: #1a2040;
-    --text-muted: #7a85aa;
-    --text-dim: #4a5278;
-    --accent: #3a5ce6;
-    --danger: #dc2626;
+    --bg: #f4f6fb; --surface: #ffffff; --surface2: #eef1f8; --surface3: #e2e7f4;
+    --border: #d5daea; --border2: #b8c2d8; --text: #1a2040; --text-muted: #7a85aa;
+    --text-dim: #4a5278; --accent: #3a5ce6; --danger: #dc2626;
   }
   body.light #json-editor { background: #f8f9fc; color: #1a6b3a; }
   body.light ::-webkit-scrollbar-track { background: #eef1f8; }
@@ -45,26 +36,15 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    height: 100vh;
+    background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column;
+    overflow: hidden; height: 100vh;
   }
 
   /* ── TOPBAR ── */
   .topbar {
-    padding: 10px 20px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    flex-shrink: 0;
+    padding: 10px 20px; background: var(--surface); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap; flex-shrink: 0;
   }
   .topbar-title h1 { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; color: var(--text); line-height: 1; }
   .topbar-title h1 span { color: var(--accent); }
@@ -72,8 +52,14 @@
   .topbar-pills { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
   .pill { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text-muted); white-space: nowrap; }
   .pill b { color: var(--text); font-weight: 500; }
-  .pill.highlight { border-color: var(--accent); }
+  .pill.highlight  { border-color: var(--accent); }
   .pill.highlight b { color: var(--accent); }
+  .pill.green   { border-color: #22c55e44; }
+  .pill.green  b { color: #4ade80; }
+  .pill.orange  { border-color: #f9731644; }
+  .pill.orange b { color: #fb923c; }
+  .pill.teal    { border-color: #14b8a644; }
+  .pill.teal   b { color: #2dd4bf; }
   .topbar-actions { display: flex; gap: 7px; }
   .btn { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: 7px; font-size: 12px; font-weight: 700; font-family: 'Syne', sans-serif; cursor: pointer; border: none; transition: filter .15s, background .15s; }
   .btn:hover { filter: brightness(1.15); }
@@ -83,38 +69,19 @@
 
   /* ── SCENARIO BAR ── */
   .scenario-bar {
-    display: flex;
-    align-items: stretch;
-    background: var(--surface);
-    border-bottom: 2px solid var(--border2);
-    flex-shrink: 0;
-    overflow-x: auto;
+    display: flex; align-items: stretch; background: var(--surface);
+    border-bottom: 2px solid var(--border2); flex-shrink: 0; overflow-x: auto;
   }
   .scenario-bar-label {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--text-muted);
-    padding: 0 16px;
-    display: flex;
-    align-items: center;
-    border-right: 1px solid var(--border);
-    white-space: nowrap;
-    flex-shrink: 0;
+    font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted);
+    padding: 0 16px; display: flex; align-items: center; border-right: 1px solid var(--border);
+    white-space: nowrap; flex-shrink: 0;
   }
   .scenario-tab {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 9px 40px 9px 16px;
-    cursor: pointer;
-    border-right: 1px solid var(--border);
-    border-bottom: 3px solid transparent;
-    transition: background .15s, border-color .15s;
-    min-width: 210px;
-    user-select: none;
-    flex-shrink: 0;
+    position: relative; display: flex; flex-direction: column; justify-content: center;
+    padding: 9px 40px 9px 16px; cursor: pointer; border-right: 1px solid var(--border);
+    border-bottom: 3px solid transparent; transition: background .15s, border-color .15s;
+    min-width: 220px; user-select: none; flex-shrink: 0;
   }
   .scenario-tab:hover { background: var(--surface2); }
   .scenario-tab.active { background: var(--surface2); border-bottom-color: var(--accent); }
@@ -127,13 +94,9 @@
   .sc-subtitle { font-size: 10px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
   .sc-meta { font-size: 9px; color: var(--text-muted); font-family: 'DM Mono', monospace; margin-top: 3px; white-space: nowrap; }
   .scenario-tab.active .sc-meta { color: var(--text-dim); }
-  .sc-badge {
-    position: absolute;
-    top: 8px; right: 8px;
-    font-size: 8px; font-weight: 700;
-    padding: 2px 5px; border-radius: 3px;
-    letter-spacing: 0.5px; white-space: nowrap;
-  }
+  .sc-kpis { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+  .sc-kpi { font-size: 8px; font-family: 'DM Mono', monospace; padding: 1px 5px; border-radius: 3px; white-space: nowrap; font-weight: 700; }
+  .sc-badge { position: absolute; top: 8px; right: 8px; font-size: 8px; font-weight: 700; padding: 2px 5px; border-radius: 3px; letter-spacing: 0.5px; white-space: nowrap; }
 
   /* ── GROUP CONTROLS ── */
   .controls { padding: 7px 20px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; background: var(--bg); border-bottom: 1px solid var(--border); flex-shrink: 0; }
@@ -159,349 +122,115 @@
 
   /* ── GANTT ── */
   .gantt-scroll { flex: 1; overflow: auto; position: relative; }
-  .gantt-inner { min-width: 960px; display: flex; flex-direction: column; min-height: 100%; }
-
+  .gantt-inner  { min-width: 960px; display: flex; flex-direction: column; min-height: 100%; }
   .gantt-header { display: flex; position: sticky; top: 0; z-index: 30; }
-  .g-label-hdr { width: var(--label-w); min-width: var(--label-w); height: var(--header-h); background: var(--surface); border: 1px solid var(--border); border-right: 2px solid var(--border2); padding: 0 14px; display: flex; align-items: center; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); position: sticky; left: 0; z-index: 31; }
+  .g-label-hdr  { width: var(--label-w); min-width: var(--label-w); height: var(--header-h); background: var(--surface); border: 1px solid var(--border); border-right: 2px solid var(--border2); padding: 0 14px; display: flex; align-items: center; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); position: sticky; left: 0; z-index: 31; }
   .g-timeline-hdr { flex: 1; height: var(--header-h); background: var(--surface); border: 1px solid var(--border); border-left: none; overflow: hidden; display: flex; flex-direction: column; }
   .g-quarters { display: flex; height: 24px; border-bottom: 1px solid var(--border); }
-  .g-quarter { display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); border-right: 1px solid var(--border); }
+  .g-quarter  { display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); border-right: 1px solid var(--border); }
   .g-quarter:last-child { border-right: none; }
   .g-months { display: flex; flex: 1; }
-  .g-month { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; letter-spacing: 0.8px; color: var(--text-muted); border-right: 1px solid var(--border); text-transform: uppercase; }
+  .g-month  { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; letter-spacing: 0.8px; color: var(--text-muted); border-right: 1px solid var(--border); text-transform: uppercase; }
   .g-month:last-child { border-right: none; }
 
   .gantt-body { position: relative; flex: 1; }
-
   .group-hdr-row { display: flex; height: 38px; border-top: 2px solid var(--border2); }
   .group-hdr-lbl { width: var(--label-w); min-width: var(--label-w); background: var(--surface2); border-right: 2px solid var(--border2); padding: 0 14px; display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; position: sticky; left: 0; z-index: 11; }
   .gcolor { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
   .g-meta { margin-left: auto; font-weight: 400; font-size: 9px; color: var(--text-muted); font-family: 'DM Mono', monospace; white-space: nowrap; }
-  .group-hdr-tl { flex: 1; background: var(--surface2); position: relative; overflow: hidden; }
-  .group-tint { position: absolute; inset: 0; opacity: 0.05; }
+  .group-hdr-tl  { flex: 1; background: var(--surface2); position: relative; overflow: hidden; }
+  .group-tint    { position: absolute; inset: 0; opacity: 0.05; }
 
   .task-row { display: flex; height: var(--row-h); border-top: 1px solid var(--border); }
   .task-row:hover .task-lbl { background: var(--surface2); }
-
   .task-lbl { width: var(--label-w); min-width: var(--label-w); padding: 0 10px 0 14px; display: flex; align-items: center; gap: 6px; border-right: 2px solid var(--border2); background: var(--bg); transition: background .12s; position: sticky; left: 0; z-index: 10; }
   .task-id-badge { font-size: 9px; font-family: 'DM Mono', monospace; color: var(--text-muted); min-width: 20px; flex-shrink: 0; }
-  .task-nm { flex: 1; font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .task-nm  { flex: 1; font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .task-ref { font-size: 8px; color: var(--accent); font-family: 'DM Mono', monospace; background: var(--surface3); border: 1px solid var(--border2); border-radius: 3px; padding: 1px 4px; flex-shrink: 0; white-space: nowrap; }
   .task-dur-lbl { font-size: 9px; color: var(--text-muted); font-family: 'DM Mono', monospace; white-space: nowrap; flex-shrink: 0; }
   .task-del { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 11px; padding: 0 2px; opacity: 0; transition: opacity .12s, color .12s; flex-shrink: 0; }
   .task-row:hover .task-del { opacity: 1; }
   .task-del:hover { color: var(--danger); }
 
-  .task-tl { flex: 1; position: relative; overflow: hidden; }
-  .grid-ov { position: absolute; inset: 0; display: flex; pointer-events: none; }
+  .task-tl  { flex: 1; position: relative; overflow: hidden; }
+  .grid-ov  { position: absolute; inset: 0; display: flex; pointer-events: none; }
   .grid-col { flex: 1; border-right: 1px solid var(--border); opacity: 0.35; }
   .grid-col:last-child { border-right: none; }
 
   .task-bar { position: absolute; height: 20px; top: 50%; transform: translateY(-50%); border-radius: 4px; cursor: pointer; transition: filter .12s; display: flex; align-items: center; padding: 0 6px; overflow: hidden; min-width: 4px; }
   .task-bar:hover { filter: brightness(1.3); }
-  .bar-txt { font-size: 10px; font-weight: 600; color: rgba(0,0,0,0.72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.1px; }
-
+  .bar-txt  { font-size: 10px; font-weight: 600; color: rgba(0,0,0,0.72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.1px; }
   .borrowed-badge { font-size: 8px; color: var(--accent); background: var(--surface3); border: 1px solid var(--accent); border-radius: 3px; padding: 1px 4px; flex-shrink: 0; }
-
-  /* ── OUTCOMES BANNER ── */
-  .outcomes-bar {
-    padding: 8px 20px;
-    background: var(--surface);
-    border-bottom: 2px solid var(--border2);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-    flex-wrap: wrap;
-  }
-  .outcomes-label {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--text-muted);
-    flex-shrink: 0;
-    margin-right: 4px;
-  }
-  .outcome-card {
-    display: flex;
-    flex-direction: column;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 6px 14px;
-    min-width: 160px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color .2s;
-  }
-  .outcome-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    border-radius: 8px 0 0 8px;
-  }
-  .outcome-card .oc-label {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-muted);
-    margin-bottom: 3px;
-    white-space: nowrap;
-  }
-  .outcome-card .oc-value {
-    font-size: 20px;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.5px;
-  }
-  .outcome-card .oc-unit {
-    font-size: 10px;
-    font-weight: 400;
-    color: var(--text-dim);
-    margin-left: 3px;
-  }
-  .outcome-card .oc-note {
-    font-size: 8px;
-    color: var(--text-muted);
-    margin-top: 3px;
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* tooltip outcome rows */
-  .tt-outcomes { margin-top: 8px; }
-  .tt-outcomes b { font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-dim); display: block; margin-bottom: 3px; }
-  .tt-oc-row { display: flex; justify-content: space-between; gap: 12px; font-size: 10px; color: var(--text-muted); margin-top: 3px; }
-  .tt-oc-row span:last-child { color: var(--text); font-family: 'DM Mono', monospace; font-weight: 600; }
-
   #dep-svg { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: visible; }
 
   /* ── TOOLTIP ── */
-  .tooltip { position: fixed; background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 12px 16px; pointer-events: none; z-index: 9999; opacity: 0; transition: opacity .1s; min-width: 240px; box-shadow: 0 12px 40px rgba(0,0,0,0.65); }
+  .tooltip { position: fixed; background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 12px 16px; pointer-events: none; z-index: 9999; opacity: 0; transition: opacity .1s; min-width: 260px; max-width: 320px; box-shadow: 0 12px 40px rgba(0,0,0,0.65); }
   .tooltip.show { opacity: 1; }
-  .tt-name { font-size: 13px; font-weight: 700; margin-bottom: 9px; line-height: 1.3; }
-  .tt-row { display: flex; justify-content: space-between; gap: 18px; margin-top: 5px; color: var(--text-muted); font-size: 11px; }
+  .tt-name  { font-size: 13px; font-weight: 700; margin-bottom: 9px; line-height: 1.3; }
+  .tt-row   { display: flex; justify-content: space-between; gap: 18px; margin-top: 5px; color: var(--text-muted); font-size: 11px; }
   .tt-row span:last-child { color: var(--text); font-family: 'DM Mono', monospace; text-align: right; }
   .tt-section { margin-top: 9px; font-size: 10px; line-height: 1.7; color: var(--text-muted); }
   .tt-section b { color: var(--text-dim); display: block; margin-bottom: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; }
   .tt-ref-tag { display: inline-block; color: var(--accent); font-family: 'DM Mono', monospace; background: var(--surface3); border: 1px solid var(--border2); border-radius: 3px; padding: 1px 6px; font-size: 10px; }
+  .tt-metrics { margin-top: 9px; display: flex; flex-direction: column; gap: 4px; }
+  .tt-metric  { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 8px; border-radius: 5px; font-size: 10px; }
+  .tt-metric .tm-label { color: var(--text-muted); }
+  .tt-metric .tm-val   { font-family: 'DM Mono', monospace; font-weight: 700; }
+  .tt-metric.rev   { background: #4ade8011; }
+  .tt-metric.rev   .tm-val { color: #4ade80; }
+  .tt-metric.work  { background: #fb923c11; }
+  .tt-metric.work  .tm-val { color: #fb923c; }
+  .tt-metric.trnst { background: #2dd4bf11; }
+  .tt-metric.trnst .tm-val { color: #2dd4bf; }
 
   .empty { padding: 60px; text-align: center; color: var(--text-muted); font-size: 13px; }
-
   ::-webkit-scrollbar { width: 5px; height: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-  /* ── PRINT INFO BLOCK (hidden on screen) ── */
   .bar-print-info { display: none; }
 
-  /* ════════════════════════════════════════════════════════════════
-     PRINT — uses body.printing class added by JS in beforeprint.
-     Strategy: keep position:absolute on bars (so left/width % stay
-     accurate for time alignment), but JS measures each bar's natural
-     content height at a fixed pixel width, then sets that height on
-     both the bar and the .task-tl so the row expands to fit.
-     Grid lines are kept so time columns remain readable.
-     ════════════════════════════════════════════════════════════════ */
-
-  body.printing {
-    --bg: #ffffff !important;
-    --surface: #ffffff !important;
-    --surface2: #f2f4f8 !important;
-    --surface3: #e8ecf4 !important;
-    --border: #d0d5e8 !important;
-    --border2: #b0b8d0 !important;
-    --text: #111827 !important;
-    --text-muted: #6b7280 !important;
-    --text-dim: #374151 !important;
-    --accent: #2563eb !important;
-    --label-w: 52px !important;
-    background: #fff !important;
-    color: #111827 !important;
-    height: auto !important;
-    overflow: visible !important;
-  }
-
-  /* Un-clip scroll containers */
-  body.printing .gantt-scroll,
-  body.printing .gantt-inner,
-  body.printing .gantt-body {
-    overflow: visible !important;
-    height: auto !important;
-    max-height: none !important;
-    flex-shrink: 0 !important;
-  }
-  body.printing .gantt-scroll { flex: none !important; }
-
-  /* De-sticky headers */
-  body.printing .gantt-header,
-  body.printing .g-label-hdr,
-  body.printing .task-lbl,
-  body.printing .group-hdr-lbl { position: static !important; }
-
-  /* Hide interactive chrome */
-  body.printing .topbar-actions,
-  body.printing .scenario-bar,
-  body.printing .controls,
-  body.printing .add-bar,
-  body.printing .json-panel,
-  body.printing .tooltip,
-  body.printing .task-del,
-  body.printing .borrowed-badge,
-  body.printing #dep-svg { display: none !important; }
-
-  /* Outcomes bar: keep it in print, but compact */
-  body.printing .outcomes-bar {
-    padding: 5px 14px !important;
-    gap: 8px !important;
-    background: #fff !important;
-    border-bottom: 1px solid #b0b8d0 !important;
-  }
-  body.printing .outcome-card {
-    padding: 4px 10px !important;
-    min-width: 120px !important;
-    background: #f2f4f8 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  body.printing .outcome-card .oc-value { font-size: 14px !important; color: #111 !important; }
-  body.printing .outcome-card .oc-unit  { font-size: 8px !important;  color: #555 !important; }
-  body.printing .outcome-card .oc-label { color: #555 !important; }
-  body.printing .outcome-card .oc-note  { color: #888 !important; }
-  body.printing .outcome-card::before { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-
-  /* bpi-outcomes in print cards */
-  body.printing .bpi-outcomes {
-    margin-top: 2px !important;
-    border-top: 1px solid rgba(255,255,255,0.25) !important;
-    padding-top: 2px !important;
-  }
-  body.printing .bpi-oc-row {
-    font-size: 6px !important;
-    color: rgba(255,255,255,0.85) !important;
-    font-family: 'DM Mono', monospace !important;
-    line-height: 1.4 !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 6px !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  /* Topbar */
-  body.printing .topbar {
-    padding: 6px 14px !important;
-    border-bottom: 2px solid #111 !important;
-    background: #fff !important;
-    margin-bottom: 4px !important;
-  }
-  body.printing .topbar-title h1 { font-size: 13px !important; color: #111 !important; }
-  body.printing .topbar-title h1 span { color: #2563eb !important; }
-  body.printing .topbar-title .subtitle { color: #666 !important; }
-  body.printing .topbar-pills .pill { background: #f2f4f8 !important; border-color: #ccc !important; color: #444 !important; }
-  body.printing .topbar-pills .pill b { color: #111 !important; }
-  body.printing .topbar-pills .pill.highlight { border-color: #2563eb !important; }
-  body.printing .topbar-pills .pill.highlight b { color: #2563eb !important; }
-
-  /* Group rows */
-  body.printing .group-hdr-row { background: #f2f4f8 !important; }
-  body.printing .group-hdr-lbl { background: #f2f4f8 !important; color: #111 !important; }
-
-  /* Task rows — height is set explicitly by JS to match bar content */
-  body.printing .task-row {
-    display: flex !important;
-    align-items: stretch !important;
-    border-top: 1px solid #d0d5e8 !important;
-    /* height is set inline by JS */
-  }
-
-  /* Left label: slim column, just #id and §ref */
-  body.printing .task-lbl {
-    background: #fff !important;
-    padding: 4px 5px !important;
-    align-items: flex-start !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-    gap: 2px !important;
-    border-right: 2px solid #b0b8d0 !important;
-    width: 52px !important;
-    min-width: 52px !important;
-    /* height matches row — set by JS */
-  }
-  body.printing .task-lbl .task-nm,
-  body.printing .task-lbl .task-dur-lbl { display: none !important; }
-  body.printing .task-lbl .task-id-badge { font-size: 9px !important; font-weight: 700 !important; color: #374151 !important; }
-  body.printing .task-lbl .task-ref { font-size: 7px !important; color: #2563eb !important; background: #eef2ff !important; border-color: #c7d2fe !important; }
-
-  /* Timeline cell — keep relative positioning so absolute bars work */
-  body.printing .task-tl {
-    overflow: visible !important;
-    position: relative !important;
-    /* height is set inline by JS */
-  }
-
-  /* Grid lines — keep them so months are readable, but lighter */
-  body.printing .grid-ov { display: flex !important; position: absolute !important; inset: 0 !important; pointer-events: none !important; }
-  body.printing .grid-col { border-right: 1px dashed #c8d0e8 !important; opacity: 1 !important; }
-
-  /* Task bar — stays position:absolute (left/width % preserved for time).
-     height is set inline by JS. Show rich info block. */
-  body.printing .task-bar {
-    top: 4px !important;
-    /* left & width kept from inline style — NOT overridden */
-    transform: none !important;
-    /* height set by JS */
-    align-items: flex-start !important;
-    padding: 5px 7px !important;
-    border-radius: 4px !important;
-    overflow: hidden !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  body.printing .bar-txt { display: none !important; }
-
-  body.printing .bar-print-info {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 2px !important;
-    width: 100% !important;
-    overflow: hidden !important;
-  }
-  body.printing .bar-print-info .bpi-name {
-    font-size: 8px !important; font-weight: 700 !important; color: #fff !important;
-    line-height: 1.25 !important; white-space: normal !important; word-break: break-word !important;
-    -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
-  }
-  body.printing .bar-print-info .bpi-ref {
-    font-size: 6.5px !important; font-weight: 600 !important;
-    color: rgba(255,255,255,0.9) !important; background: rgba(0,0,0,0.2) !important;
-    border-radius: 2px !important; padding: 1px 3px !important;
-    display: inline-block !important; width: fit-content !important;
-    -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
-  }
-  body.printing .bar-print-info .bpi-dates {
-    font-size: 6.5px !important; color: rgba(255,255,255,0.9) !important;
-    -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
-  }
-  body.printing .bar-print-info .bpi-budget {
-    font-size: 7px !important; font-weight: 700 !important; color: #fff !important;
-    -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
-  }
-  body.printing .bar-print-info .bpi-deps {
-    font-size: 6px !important; color: rgba(255,255,255,0.72) !important;
-    white-space: normal !important; word-break: break-word !important; line-height: 1.35 !important;
-    -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
-  }
-
-  /* Header */
-  body.printing .g-label-hdr { color: #6b7280 !important; background: #fff !important; width: 52px !important; min-width: 52px !important; }
-  body.printing .g-quarter { color: #2563eb !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-  body.printing .g-month   { color: #4b5563 !important; }
-
+  /* ── PRINT ── */
   @media print {
-    body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    @page { size: A3 landscape; margin: 10mm 8mm; }
+    body, body.light {
+      --bg:#fff; --surface:#fff; --surface2:#f2f4f8; --surface3:#e8ecf4;
+      --border:#d0d5e8; --border2:#b0b8d0; --text:#111827; --text-muted:#6b7280;
+      --text-dim:#374151; --accent:#2563eb;
+      background:#fff !important; color:#111827 !important;
+      height:auto !important; overflow:visible !important;
+    }
+    .topbar-actions, .scenario-bar, .controls, .add-bar, .json-panel, .tooltip, .task-del, .borrowed-badge { display:none !important; }
+    body, .gantt-scroll, .gantt-inner, .gantt-body, .task-tl { overflow:visible !important; height:auto !important; max-height:none !important; flex-shrink:0 !important; }
+    .gantt-scroll { flex:none; }
+    .gantt-header, .g-label-hdr, .task-lbl, .group-hdr-lbl { position:static !important; }
+    .topbar { padding:8px 16px; border-bottom:2px solid #111; margin-bottom:4px; background:#fff !important; }
+    .topbar-title h1 { font-size:14px; color:#111 !important; }
+    .topbar-title h1 span { color:#2563eb !important; }
+    .topbar-title .subtitle { color:#666 !important; }
+    .topbar-pills .pill { background:#f2f4f8 !important; border-color:#ccc !important; color:#444 !important; }
+    .topbar-pills .pill b { color:#111 !important; }
+    .topbar-pills .pill.highlight { border-color:#2563eb !important; }
+    .topbar-pills .pill.highlight b { color:#2563eb !important; }
+    .group-hdr-row { background:#f2f4f8 !important; break-inside:avoid; }
+    .group-hdr-lbl { background:#f2f4f8 !important; color:#111 !important; }
+    .task-row { height:auto !important; min-height:64px; break-inside:avoid; page-break-inside:avoid; }
+    .task-lbl { background:#fff !important; min-height:64px; height:auto !important; padding-top:6px; padding-bottom:6px; align-items:flex-start !important; }
+    .task-nm  { white-space:normal !important; font-size:11px !important; }
+    .task-ref { font-size:8px !important; }
+    .grid-col { border-color:#e0e4ef !important; opacity:1 !important; }
+    .task-bar { height:calc(100% - 8px) !important; min-height:56px !important; top:4px !important; transform:none !important; border-radius:5px !important; overflow:visible !important; align-items:flex-start !important; padding:5px 7px !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    .bar-txt { display:none !important; }
+    .bar-print-info { display:flex !important; flex-direction:column; gap:2px; width:100%; overflow:hidden; }
+    .bar-print-info .bpi-name   { font-family:'Syne',sans-serif; font-size:9px; font-weight:700; color:#fff; line-height:1.3; white-space:normal; word-break:break-word; }
+    .bar-print-info .bpi-ref    { font-family:'DM Mono',monospace; font-size:7.5px; font-weight:600; color:rgba(255,255,255,0.85); background:rgba(0,0,0,0.18); border-radius:2px; padding:0px 4px; display:inline-block; width:fit-content; }
+    .bar-print-info .bpi-dates  { font-family:'DM Mono',monospace; font-size:7.5px; color:rgba(255,255,255,0.9); margin-top:1px; }
+    .bar-print-info .bpi-budget { font-family:'DM Mono',monospace; font-size:7.5px; font-weight:600; color:rgba(255,255,255,0.95); margin-top:1px; }
+    .bar-print-info .bpi-deps   { font-family:'DM Mono',monospace; font-size:7px; color:rgba(255,255,255,0.7); margin-top:1px; white-space:normal; word-break:break-word; }
+    .g-quarter { color:#2563eb !important; }
+    .g-month   { color:#4b5563 !important; }
+    .g-label-hdr { color:#6b7280 !important; background:#fff !important; }
+    #dep-svg path { opacity:0.6 !important; }
+    #dep-svg polygon { opacity:0.7 !important; }
+    @page { size: A3 landscape; margin: 12mm 10mm; }
   }
 </style>
 </head>
@@ -514,15 +243,23 @@
     <div class="subtitle">Plan de mise en œuvre — Gantt interactif</div>
   </div>
   <div class="topbar-pills">
-    <div class="pill highlight">Scénario: <b id="sum-scenario">—</b></div>
-    <div class="pill">Durée: <b id="sum-dur">—</b></div>
-    <div class="pill">Budget: <b id="sum-bud">—</b></div>
-    <div class="pill">Tâches: <b id="sum-tasks">—</b></div>
-    <div class="pill">Groupes: <b id="sum-groups">—</b></div>
+    <div class="pill highlight">Scénario : <b id="sum-scenario">—</b></div>
+    <div class="pill">Durée : <b id="sum-dur">—</b></div>
+    <div class="pill">Budget : <b id="sum-bud">—</b></div>
+    <div class="pill">Tâches : <b id="sum-tasks">—</b></div>
+    <div class="pill green" title="Amélioration des recettes douanières cumulée sur les tâches actives">
+      Recettes : <b id="sum-rev">—</b>
+    </div>
+    <div class="pill orange" title="Heures-employé économisées par an sur les tâches actives">
+      Charge évitée : <b id="sum-work">—</b>
+    </div>
+    <div class="pill teal" title="Réduction de la durée de transit portuaire cumulée sur les tâches actives">
+      Transit : <b id="sum-transit">—</b>
+    </div>
   </div>
   <div class="topbar-actions">
     <button class="btn btn-ghost" id="theme-btn" onclick="toggleTheme()" title="Basculer jour/nuit">🌙</button>
-    <button class="btn btn-ghost" onclick="prepareForPrint();window.print();" title="Imprimer">🖨 Imprimer</button>
+    <button class="btn btn-ghost" onclick="window.print()" title="Imprimer">🖨 Imprimer</button>
     <button class="btn btn-ghost" id="json-btn" onclick="toggleJson()">{ } JSON</button>
     <button class="btn btn-ghost" onclick="addGroup()">+ Groupe</button>
   </div>
@@ -530,9 +267,6 @@
 
 <!-- SCENARIO TABS -->
 <div class="scenario-bar" id="scenario-bar"></div>
-
-<!-- OUTCOMES BANNER -->
-<div class="outcomes-bar" id="outcomes-bar"></div>
 
 <!-- GROUP TOGGLES -->
 <div class="controls" id="group-controls"></div>
@@ -546,7 +280,7 @@
   <input type="number" id="inp-dur"    placeholder="Durée (mois)" min="1" style="width:90px;" />
   <input type="number" id="inp-budget" placeholder="Budget FCFA" min="0" style="width:120px;" />
   <input type="text"   id="inp-deps"   placeholder="Dép. IDs: 1,3" style="width:110px;" />
-  <input type="text"   id="inp-ref"    placeholder="Réf. §2.1" style="width:80px;" />
+  <input type="text"   id="inp-ref"    placeholder="Réf. §2.2" style="width:80px;" />
   <button class="btn btn-primary" onclick="addTask()">+ Ajouter</button>
 </div>
 
@@ -587,121 +321,734 @@
 const PALETTE = ['#4f9ef8','#f77f5f','#50d08c','#a78bfa','#f9c74f','#38bdf8','#fb923c','#f472b6','#34d399','#e879f9'];
 
 const SC_BADGE = {
-  A: { label:'SOCLE',        bg:'#1a2840', c:'#4f9ef8' },
-  B: { label:'OPÉRATIONNEL', bg:'#1a2e20', c:'#50d08c' },
-  C: { label:'INTÉGRAL',     bg:'#2e1a1a', c:'#f77f5f' }
+  A: { label:'PILOTE',        bg:'#1a2840', c:'#4f9ef8' },
+  B: { label:'INTÉGRATION',   bg:'#1a2e20', c:'#50d08c' },
+  C: { label:'INSTITUTIONNEL',bg:'#2e2a14', c:'#f9c74f' },
 };
 
 // ════════════════════════════════════════════════════════════════════
-//  PROJECT DATA
+//  PROJECT DATA  (CAMCIS v5 — Livrable 2 Chapitre 2)
 // ════════════════════════════════════════════════════════════════════
 
 let project = {
-  name: "CAMCIS AI — Plan de mise en œuvre",
-  timeUnit: "mois",
-  budgetUnit: "FCFA",
-  startDate: "2025-01-01",
-
-  activeScenario: "A",
-
-  // ── 4 SCENARIOS ──────────────────────────────────────────────────
-  // A  Socle minimal       : gouvernance + data warehouse fondation seulement
-  // B  Déploiement core    : A + recette douanière + performance opérationnelle
-  // C  Extension IA        : B + détection fraudes + service usagers
-  // D  Programme intégral  : tout, y compris MDM & conformité avancée
-  scenarios: [
+  "name": "CAMCIS — Intégration de l'IA",
+  "subtitle": "Livrable 2 — Chapitre 2 : Spécifications Fonctionnelles",
+  "version": "2.0",
+  "timeUnit": "mois",
+  "budgetUnit": "FCFA",
+  "startDate": "2026-03-01",
+  "activeScenario": "A",
+  "scenarios": [
     {
-      id: "A",
-      label: "Scénario A",
-      name: "Socle minimal",
-      subtitle: "Gouvernance & fondation data uniquement",
-      taskIds: [21, 22, 25, 26, 27, 28, 29, 30]
+      "id": "A",
+      "name": "Pilote IA ciblé",
+      "subtitle": "Gouvernance renforcée + Scoring risque pilote (2 bureaux) — Mois 1 à 9",
+      "duration": 9,
+      "budget": 116000000,
+      "taskIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "label": "Scénario A"
     },
     {
-      id: "B",
-      label: "Scénario B",
-      name: "Déploiement opérationnel",
-      subtitle: "Recette douanière + performance + infrastructure",
-      taskIds: [1, 2, 3, 4, 5, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+      "id": "B",
+      "name": "Intégration modulaire progressive",
+      "subtitle": "A + MLOps + Extension nationale + LLM + OCR + API B2B + Chatbot — Mois 1 à 24",
+      "duration": 24,
+      "budget": 461500000,
+      "taskIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "label": "Scénario B"
     },
     {
-      id: "C",
-      label: "Scénario C",
-      name: "Programme intégral",
-      subtitle: "Tous modules — IA, fraudes, usagers, MDM & conformité",
-      taskIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+      "id": "C",
+      "name": "Plateforme IA institutionnelle",
+      "subtitle": "A + B + Centre Excellence + Tous modules IA + Interopérabilité CEMAC — Mois 1 à 48",
+      "duration": 48,
+      "budget": 805500000,
+      "taskIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33
+      ],
+      "label": "Scénario C"
     }
   ],
-
-  // ── OUTCOME DEFINITIONS ─────────────────────────────────────────
-  // Each outcome has: id, label, unit, color, icon
-  // Task contributions are summed across all visible tasks.
-  outcomes: [
-    { id:"recettes",  label:"Amélioration des recettes",      unit:"%",    color:"#50d08c", icon:"📈" },
-    { id:"charge",    label:"Réduction de la charge",         unit:"h/an", color:"#4f9ef8", icon:"⏱" },
-    { id:"transit",   label:"Baisse durée de transit",        unit:"%",    color:"#a78bfa", icon:"🚚" }
+  "groups": [
+    {
+      "id": 1,
+      "name": "Module 1 — Gouvernance, Données & Conformité",
+      "ref": "§ 2.2.1",
+      "color": "#2563A8",
+      "visible": true
+    },
+    {
+      "id": 2,
+      "name": "Module 2 — Infrastructure & MLOps",
+      "ref": "§ 2.2.2",
+      "color": "#4A7FC1",
+      "visible": true
+    },
+    {
+      "id": 3,
+      "name": "Module 3 — Détection de fraudes & Risques",
+      "ref": "§ 2.2.3",
+      "color": "#C55A11",
+      "visible": true
+    },
+    {
+      "id": 4,
+      "name": "Module 4 — Efficacité opérationnelle",
+      "ref": "§ 2.2.4",
+      "color": "#7030A0",
+      "visible": true
+    },
+    {
+      "id": 5,
+      "name": "Module 5 — Service aux usagers",
+      "ref": "§ 2.2.5",
+      "color": "#1D6060",
+      "visible": true
+    },
+    {
+      "id": 6,
+      "name": "Module 6 — Pilotage stratégique & Centre Excellence",
+      "ref": "§ 2.2.6",
+      "color": "#7F6000",
+      "visible": true
+    },
+    {
+      "id": 7,
+      "name": "Module 7 — Interopérabilité CEMAC",
+      "ref": "§ 2.2.7",
+      "color": "#00695C",
+      "visible": true
+    }
   ],
-
-  // ── GROUPS ───────────────────────────────────────────────────────
-  groups: [
-    { id:1, name:"Amélioration recette douanière",    color:"#4f9ef8", visible:true },
-    { id:2, name:"Détection des fraudes",             color:"#f77f5f", visible:true },
-    { id:3, name:"Service usagers",                   color:"#50d08c", visible:true },
-    { id:4, name:"Performance opérationnelle",        color:"#a78bfa", visible:true },
-    { id:5, name:"Services communs & Data Warehouse", color:"#f9c74f", visible:true },
-    { id:6, name:"Gouvernance & Change Management",   color:"#38bdf8", visible:true }
+  "tasks": [
+    {
+      "id": 1,
+      "groupId": 1,
+      "ref": "§ 2.2.1.1",
+      "taskCode": "T-1.1",
+      "name": "Comité pilotage & CDO permanent",
+      "start": 1,
+      "duration": 2,
+      "budget": 15000000,
+      "deps": [],
+      "note": "CDO à temps plein dès M1 — non un consultant ponctuel.",
+      "scenario": "A"
+    },
+    {
+      "id": 2,
+      "groupId": 1,
+      "ref": "§ 2.2.1.2",
+      "taskCode": "T-1.2",
+      "name": "Gouvernance données & dictionnaire",
+      "start": 1,
+      "duration": 3,
+      "budget": 12000000,
+      "deps": [
+        1
+      ],
+      "note": "Data stewards par bureau + dictionnaire données complet",
+      "scenario": "A",
+      "revenueImpactPct": 0.1,
+      "workloadSavingHoursPerYear": 2000
+    },
+    {
+      "id": 3,
+      "groupId": 1,
+      "ref": "§ 2.2.1.3",
+      "taskCode": "T-1.3",
+      "name": "Charte éthique IA & conformité Loi 2024/017",
+      "start": 2,
+      "duration": 1,
+      "budget": 5000000,
+      "deps": [
+        1
+      ],
+      "note": "Charte éthique + conformité loi camerounaise 2024/017",
+      "scenario": "A"
+    },
+    {
+      "id": 4,
+      "groupId": 2,
+      "ref": "§ 2.2.2.1",
+      "taskCode": "T-2.1",
+      "name": "Infrastructure dev/test & env. data science",
+      "start": 2,
+      "duration": 2,
+      "budget": 12000000,
+      "deps": [
+        1
+      ],
+      "note": "JupyterHub, Docker, Git, réseau isolé prod/dev",
+      "scenario": "A"
+    },
+    {
+      "id": 5,
+      "groupId": 2,
+      "ref": "§ 2.2.2.2",
+      "taskCode": "T-2.2",
+      "name": "Pipelines ETL — données historiques CAMCIS",
+      "start": 3,
+      "duration": 2,
+      "budget": 7000000,
+      "deps": [
+        4
+      ],
+      "note": "5 ans de données historiques, 40+ variables, Airflow + pandas",
+      "scenario": "A",
+      "revenueImpactPct": 0.05,
+      "workloadSavingHoursPerYear": 800
+    },
+    {
+      "id": 6,
+      "groupId": 3,
+      "ref": "§ 2.2.3.1",
+      "taskCode": "T-3.1",
+      "name": "Feature engineering & scoring risque ML",
+      "start": 4,
+      "duration": 3,
+      "budget": 27000000,
+      "deps": [
+        5
+      ],
+      "note": "XGBoost/Random Forest, 40+ variables, back-testing 5 ans",
+      "scenario": "A",
+      "revenueImpactPct": 1.0,
+      "workloadSavingHoursPerYear": 5000
+    },
+    {
+      "id": 7,
+      "groupId": 3,
+      "ref": "§ 2.2.3.2",
+      "taskCode": "T-3.2",
+      "name": "XAI (SHAP/LIME) & interface agents",
+      "start": 6,
+      "duration": 2,
+      "budget": 12000000,
+      "deps": [
+        6
+      ],
+      "note": "Chaque décision traçable et auditable. Droit de recours garanti",
+      "scenario": "A",
+      "revenueImpactPct": 0.25,
+      "workloadSavingHoursPerYear": 2000
+    },
+    {
+      "id": 8,
+      "groupId": 3,
+      "ref": "§ 2.2.3.3",
+      "taskCode": "T-3.3",
+      "name": "Déploiement pilote — Port Douala & frontière",
+      "start": 7,
+      "duration": 2,
+      "budget": 9000000,
+      "deps": [
+        7
+      ],
+      "note": "2 bureaux pilotes, 500+ déclarations/jour scorées",
+      "scenario": "A",
+      "revenueImpactPct": 0.4,
+      "workloadSavingHoursPerYear": 3000
+    },
+    {
+      "id": 9,
+      "groupId": 1,
+      "ref": "§ 2.2.1.4",
+      "taskCode": "T-1.4a",
+      "name": "Formation agents pilotes & conduite changement (Sc.A)",
+      "start": 5,
+      "duration": 3,
+      "budget": 11000000,
+      "deps": [
+        3
+      ],
+      "note": "Formation agents 2 bureaux pilotes. Taux adoption cible >70 %",
+      "scenario": "A",
+      "workloadSavingHoursPerYear": 1500
+    },
+    {
+      "id": 10,
+      "groupId": 6,
+      "ref": "§ 2.2.6.1",
+      "taskCode": "T-6.1",
+      "name": "Évaluation KPIs pilote & rapport Go/No-Go",
+      "start": 9,
+      "duration": 1,
+      "budget": 6000000,
+      "deps": [
+        8,
+        9
+      ],
+      "note": "Déclencheur Scénario B. ROI Sc.A documenté",
+      "scenario": "A"
+    },
+    {
+      "id": 11,
+      "groupId": 2,
+      "ref": "§ 2.2.2.3",
+      "taskCode": "T-2.3",
+      "name": "Plateforme MLOps — MLflow + Kubeflow",
+      "start": 10,
+      "duration": 3,
+      "budget": 30000000,
+      "deps": [
+        5,
+        10
+      ],
+      "note": "Versioning modèles, CI/CD, monitoring drift. Déploiement 24-48h",
+      "scenario": "B",
+      "workloadSavingHoursPerYear": 3000
+    },
+    {
+      "id": 12,
+      "groupId": 2,
+      "ref": "§ 2.2.2.4",
+      "taskCode": "T-2.4",
+      "name": "Serveurs GPU & infrastructure production HA",
+      "start": 10,
+      "duration": 2,
+      "budget": 22500000,
+      "deps": [
+        10
+      ],
+      "note": "2× NVIDIA A100, SAN 10 To, Kubernetes HA, disponibilité 99,5 %",
+      "scenario": "B"
+    },
+    {
+      "id": 13,
+      "groupId": 3,
+      "ref": "§ 2.2.3.4",
+      "taskCode": "T-3.4",
+      "name": "Extension nationale — scoring risque tous bureaux",
+      "start": 12,
+      "duration": 4,
+      "budget": 35000000,
+      "deps": [
+        11,
+        8
+      ],
+      "note": "100 % bureaux couverts M15. Réentraînement mensuel automatique",
+      "scenario": "B",
+      "revenueImpactPct": 1.3,
+      "workloadSavingHoursPerYear": 8000
+    },
+    {
+      "id": 14,
+      "groupId": 4,
+      "ref": "§ 2.2.4.1",
+      "taskCode": "T-4.1",
+      "name": "Classification tarifaire assistée — LLM souverain",
+      "start": 13,
+      "duration": 5,
+      "budget": 45000000,
+      "deps": [
+        11
+      ],
+      "note": "Llama 3 / Mistral local. Code SH + justification textuelle. -50 % erreurs",
+      "scenario": "B",
+      "revenueImpactPct": 0.15,
+      "workloadSavingHoursPerYear": 12000
+    },
+    {
+      "id": 15,
+      "groupId": 4,
+      "ref": "§ 2.2.4.2",
+      "taskCode": "T-4.2",
+      "name": "Fine-tuning LLM souverain sur corpus douanier CEMAC",
+      "start": 15,
+      "duration": 3,
+      "budget": 20000000,
+      "deps": [
+        14
+      ],
+      "note": "LoRA + RAG sur corpus DGD/CEMAC. Prérequis chatbot et classification",
+      "scenario": "B",
+      "revenueImpactPct": 0.05
+    },
+    {
+      "id": 16,
+      "groupId": 4,
+      "ref": "§ 2.2.4.3",
+      "taskCode": "T-4.3",
+      "name": "Vérification documentaire OCR & NLP",
+      "start": 14,
+      "duration": 4,
+      "budget": 42000000,
+      "deps": [
+        11
+      ],
+      "note": "Tesseract/Textract + BERT. -50 à 70 % temps contrôle documentaire",
+      "scenario": "B",
+      "revenueImpactPct": 0.1,
+      "workloadSavingHoursPerYear": 15000,
+      "transitReductionPct": 1.5
+    },
+    {
+      "id": 17,
+      "groupId": 4,
+      "ref": "§ 2.2.4.5",
+      "taskCode": "T-4.5",
+      "name": "API B2B — Intégration opérateurs & ERP [AVANCÉE]",
+      "start": 18,
+      "duration": 4,
+      "budget": 35000000,
+      "deps": [
+        16,
+        13
+      ],
+      "note": "AVANCÉE Sc.C → Sc.B. REST + webhooks. 10+ OEA pilotes",
+      "scenario": "B",
+      "revenueImpactPct": 0.2,
+      "workloadSavingHoursPerYear": 10000,
+      "transitReductionPct": 3.0
+    },
+    {
+      "id": 18,
+      "groupId": 5,
+      "ref": "§ 2.2.5.1",
+      "taskCode": "T-5.1",
+      "name": "Chatbot multilingue 24/7 — EPT/IPT & mobile [AVANCÉ]",
+      "start": 17,
+      "duration": 5,
+      "budget": 50000000,
+      "deps": [
+        15,
+        13
+      ],
+      "note": "AVANCÉ Sc.C → Sc.B. RAG + LLM fine-tuné. FR/EN/langues locales. 50-70 % demandes autonomes",
+      "scenario": "B",
+      "workloadSavingHoursPerYear": 6000,
+      "transitReductionPct": 1.0
+    },
+    {
+      "id": 19,
+      "groupId": 1,
+      "ref": "§ 2.2.1.5",
+      "taskCode": "T-1.5",
+      "name": "Programme académique ENSP — Partenariat Polytechnique Yaoundé",
+      "start": 13,
+      "duration": 6,
+      "budget": 13000000,
+      "deps": [
+        13
+      ],
+      "note": "Convention ENSP : stages data science, thèses appliquées, pipeline recrutement CEI",
+      "scenario": "B"
+    },
+    {
+      "id": 20,
+      "groupId": 6,
+      "ref": "§ 2.2.6.2",
+      "taskCode": "T-6.2",
+      "name": "Évaluation étendue & audit éthique/ROI Scénario B",
+      "start": 23,
+      "duration": 2,
+      "budget": 11000000,
+      "deps": [
+        17,
+        18
+      ],
+      "note": "Déclencheur Scénario C. ROI réel Sc.B documenté vs estimé",
+      "scenario": "B"
+    },
+    {
+      "id": 21,
+      "groupId": 6,
+      "ref": "§ 2.2.6.3",
+      "taskCode": "T-6.3",
+      "name": "Centre d'Excellence IA — Création & recrutement",
+      "start": 25,
+      "duration": 6,
+      "budget": 40000000,
+      "deps": [
+        20
+      ],
+      "note": "8-12 experts locaux. Budget récurrent post-M48 : 110-140M FCFA/an",
+      "scenario": "C",
+      "workloadSavingHoursPerYear": 5000
+    },
+    {
+      "id": 22,
+      "groupId": 4,
+      "ref": "§ 2.2.4.4",
+      "taskCode": "T-4.4",
+      "name": "Assistance intelligente saisie des déclarations",
+      "start": 27,
+      "duration": 3,
+      "budget": 30000000,
+      "deps": [
+        16
+      ],
+      "note": "Auto-complétion + validation temps réel. -30 à 40 % temps saisie",
+      "scenario": "C",
+      "revenueImpactPct": 0.05,
+      "workloadSavingHoursPerYear": 8000,
+      "transitReductionPct": 1.0
+    },
+    {
+      "id": 23,
+      "groupId": 4,
+      "ref": "§ 2.2.4.6",
+      "taskCode": "T-4.6",
+      "name": "Automatisation dédouanement faible risque (circuit vert)",
+      "start": 27,
+      "duration": 4,
+      "budget": 38000000,
+      "deps": [
+        21
+      ],
+      "note": "60-70 % déclarations en circuit vert. Supervision humaine 10 % aléatoire",
+      "scenario": "C",
+      "revenueImpactPct": 0.2,
+      "workloadSavingHoursPerYear": 18000,
+      "transitReductionPct": 5.0
+    },
+    {
+      "id": 24,
+      "groupId": 3,
+      "ref": "§ 2.2.3.5",
+      "taskCode": "T-3.5",
+      "name": "Analyse graphes GNN — Réseaux frauduleux",
+      "start": 28,
+      "duration": 5,
+      "budget": 50000000,
+      "deps": [
+        21
+      ],
+      "note": "PyTorch Geometric + Neo4j. -60 à 70 % temps enquêtes réseaux",
+      "scenario": "C",
+      "revenueImpactPct": 0.35,
+      "workloadSavingHoursPerYear": 6000
+    },
+    {
+      "id": 25,
+      "groupId": 5,
+      "ref": "§ 2.2.5.2",
+      "taskCode": "T-5.2",
+      "name": "Gestion intelligente réclamations & contentieux",
+      "start": 33,
+      "duration": 3,
+      "budget": 25000000,
+      "deps": [
+        18
+      ],
+      "note": "Tri NLP + case-based reasoning. -50 à 70 % délai traitement",
+      "scenario": "C",
+      "workloadSavingHoursPerYear": 4000,
+      "transitReductionPct": 0.5
+    },
+    {
+      "id": 26,
+      "groupId": 6,
+      "ref": "§ 2.2.6.4",
+      "taskCode": "T-6.4",
+      "name": "Prévisions avancées recettes & flux commerciaux",
+      "start": 32,
+      "duration": 4,
+      "budget": 35000000,
+      "deps": [
+        21
+      ],
+      "note": "LSTM + Prophet. Horizon 12 mois. +30 à 45 % précision budgétaire",
+      "scenario": "C",
+      "revenueImpactPct": 0.1,
+      "workloadSavingHoursPerYear": 3000
+    },
+    {
+      "id": 27,
+      "groupId": 6,
+      "ref": "§ 2.2.6.5",
+      "taskCode": "T-6.5",
+      "name": "Simulation impact mesures douanières",
+      "start": 35,
+      "duration": 4,
+      "budget": 30000000,
+      "deps": [
+        26
+      ],
+      "note": "Monte Carlo + réseaux bayésiens. -50 à 70 % risque décisions contre-productives",
+      "scenario": "C",
+      "revenueImpactPct": 0.1,
+      "workloadSavingHoursPerYear": 2000
+    },
+    {
+      "id": 28,
+      "groupId": 7,
+      "ref": "§ 2.2.7.1",
+      "taskCode": "T-7.1",
+      "name": "Interopérabilité SYDONIA++ & douanes CEMAC",
+      "start": 30,
+      "duration": 4,
+      "budget": 18000000,
+      "deps": [
+        23,
+        17
+      ],
+      "note": "MODULE. Échange manifestes + alertes risque CEMAC. Standard WCO SAFE",
+      "scenario": "C",
+      "revenueImpactPct": 0.15,
+      "transitReductionPct": 2.0
+    },
+    {
+      "id": 29,
+      "groupId": 7,
+      "ref": "§ 2.2.7.2",
+      "taskCode": "T-7.2",
+      "name": "Intégration écosystème portuaire — compagnies maritimes",
+      "start": 33,
+      "duration": 3,
+      "budget": 12000000,
+      "deps": [
+        28
+      ],
+      "note": "Pre-Arrival Processing, Maersk/MSC/CMA-CGM. -15 à 20 % temps séjour conteneurs",
+      "scenario": "C",
+      "transitReductionPct": 5.0
+    },
+    {
+      "id": 30,
+      "groupId": 6,
+      "ref": "§ 2.2.6.6",
+      "taskCode": "T-6.6",
+      "name": "Démocratisation analyse données — NL vers SQL/Python",
+      "start": 38,
+      "duration": 4,
+      "budget": 28000000,
+      "deps": [
+        21
+      ],
+      "note": "Text-to-SQL sur LLM fine-tuné. ×5 à 10 agents capables d'analyser sans IT",
+      "scenario": "C",
+      "workloadSavingHoursPerYear": 8000
+    },
+    {
+      "id": 31,
+      "groupId": 3,
+      "ref": "§ 2.2.3.6",
+      "taskCode": "T-3.6",
+      "name": "Vision par ordinateur — Phase EXPÉRIMENTALE (1-2 scanners)",
+      "start": 42,
+      "duration": 4,
+      "budget": 30000000,
+      "deps": [
+        28
+      ],
+      "note": "Pilote 1-2 scanners Douala uniquement. Industrialisation = budget additionnel séparé",
+      "scenario": "C",
+      "revenueImpactPct": 0.1,
+      "workloadSavingHoursPerYear": 2000
+    },
+    {
+      "id": 32,
+      "groupId": 6,
+      "ref": "§ 2.2.6.7",
+      "taskCode": "T-6.7",
+      "name": "Audits éthique semestriels & rapport final programme",
+      "start": 44,
+      "duration": 3,
+      "budget": 27000000,
+      "deps": [
+        30,
+        27,
+        31
+      ],
+      "note": "Audits Fairness Indicators. Rapport final DGD M46. Plan phase 2 M48",
+      "scenario": "C"
+    },
+    {
+      "id": 33,
+      "groupId": 3,
+      "ref": "§ 2.2.3.7",
+      "taskCode": "T-3.7",
+      "name": "Réponse adaptative chocs commerciaux",
+      "start": 40,
+      "duration": 4,
+      "budget": 15000000,
+      "deps": [
+        27
+      ],
+      "note": "Drift detection + recalibration automatique <48h. Stabilité KPIs en période perturbée",
+      "scenario": "C",
+      "revenueImpactPct": 0.05,
+      "workloadSavingHoursPerYear": 500
+    }
   ],
-
-  // ── TASKS ────────────────────────────────────────────────────────
-  // ref = chapter reference in the project document
-  // outcomes = { recettes: %, charge: h/an, transit: % }
-  tasks: [
-    // ── G1 Recette douanière ────────────────────────────────────
-    { id: 1,  groupId:1, name:"Audit des processus déclaratifs",          start:1,  duration:2, budget:45000000,   deps:[],        ref:"§ 2.1", outcomes:{recettes:0,   charge:200,  transit:0  } },
-    { id: 2,  groupId:1, name:"Modèle IA — évaluation risque fiscal",     start:3,  duration:4, budget:130000000,  deps:[1,22],    ref:"§ 2.2", outcomes:{recettes:4.5, charge:1200, transit:0  } },
-    { id: 3,  groupId:1, name:"Intégration valorisation tarifaire",       start:7,  duration:4, budget:200000000,  deps:[2],       ref:"§ 2.3", outcomes:{recettes:6.0, charge:800,  transit:0  } },
-    { id: 4,  groupId:1, name:"Tableau de bord recette temps réel",       start:10, duration:3, budget:85000000,   deps:[3,23],    ref:"§ 2.4", outcomes:{recettes:1.5, charge:400,  transit:0  } },
-    { id: 5,  groupId:1, name:"Formation agents — évaluation IA",         start:12, duration:2, budget:30000000,   deps:[4],       ref:"§ 2.5", outcomes:{recettes:0.5, charge:300,  transit:0  } },
-
-    // ── G2 Détection fraudes ────────────────────────────────────
-    { id: 6,  groupId:2, name:"Collecte & étiquetage données fraudes",    start:1,  duration:3, budget:60000000,   deps:[],        ref:"§ 3.1", outcomes:{recettes:0,   charge:150,  transit:0  } },
-    { id: 7,  groupId:2, name:"Modèle ML — détection anomalies",          start:4,  duration:5, budget:185000000,  deps:[6,22],    ref:"§ 3.2", outcomes:{recettes:3.0, charge:900,  transit:0  } },
-    { id: 8,  groupId:2, name:"Système d'alerte temps réel",              start:9,  duration:3, budget:140000000,  deps:[7],       ref:"§ 3.3", outcomes:{recettes:2.0, charge:600,  transit:0  } },
-    { id: 9,  groupId:2, name:"Dashboard enquêteurs / cas fraude",        start:11, duration:3, budget:90000000,   deps:[8,23],    ref:"§ 3.4", outcomes:{recettes:1.0, charge:500,  transit:0  } },
-    { id:10,  groupId:2, name:"Audit & validation modèle anti-fraude",    start:13, duration:2, budget:50000000,   deps:[9],       ref:"§ 3.5", outcomes:{recettes:0.5, charge:200,  transit:0  } },
-
-    // ── G3 Service usagers ──────────────────────────────────────
-    { id:11,  groupId:3, name:"Étude UX & cartographie parcours",         start:2,  duration:2, budget:35000000,   deps:[],        ref:"§ 4.1", outcomes:{recettes:0,   charge:100,  transit:0.5} },
-    { id:12,  groupId:3, name:"Refonte portail usagers",                  start:4,  duration:4, budget:110000000,  deps:[11],      ref:"§ 4.2", outcomes:{recettes:0,   charge:800,  transit:2.0} },
-    { id:13,  groupId:3, name:"Chatbot IA — assistance déclarative",      start:7,  duration:4, budget:155000000,  deps:[12,22],   ref:"§ 4.3", outcomes:{recettes:0,   charge:1500, transit:3.0} },
-    { id:14,  groupId:3, name:"Notifications & suivi dossiers mobile",    start:10, duration:3, budget:70000000,   deps:[13],      ref:"§ 4.4", outcomes:{recettes:0,   charge:400,  transit:1.5} },
-    { id:15,  groupId:3, name:"Évaluation satisfaction & itération",      start:13, duration:2, budget:25000000,   deps:[14],      ref:"§ 4.5", outcomes:{recettes:0,   charge:100,  transit:0.5} },
-
-    // ── G4 Performance opérationnelle ───────────────────────────
-    { id:16,  groupId:4, name:"Benchmark performances actuelles",         start:1,  duration:2, budget:25000000,   deps:[],        ref:"§ 5.1", outcomes:{recettes:0,   charge:100,  transit:0.5} },
-    { id:17,  groupId:4, name:"Optimisation workflows déclaration",       start:3,  duration:4, budget:95000000,   deps:[16,22],   ref:"§ 5.2", outcomes:{recettes:1.0, charge:2000, transit:2.5} },
-    { id:18,  groupId:4, name:"Automatisation contrôles documentaires",   start:6,  duration:5, budget:175000000,  deps:[17],      ref:"§ 5.3", outcomes:{recettes:0.5, charge:3500, transit:4.0} },
-    { id:19,  groupId:4, name:"KPI & reporting automatisé",               start:10, duration:3, budget:65000000,   deps:[18,23],   ref:"§ 5.4", outcomes:{recettes:0,   charge:1200, transit:1.0} },
-    { id:20,  groupId:4, name:"Déploiement bureaux pilotes",              start:12, duration:4, budget:120000000,  deps:[19],      ref:"§ 5.5", outcomes:{recettes:0,   charge:600,  transit:1.5} },
-
-    // ── G5 Data Warehouse & Services communs ────────────────────
-    { id:21,  groupId:5, name:"Architecture Data Warehouse cible",        start:1,  duration:3, budget:90000000,   deps:[],        ref:"§ 6.1", outcomes:{recettes:0,   charge:300,  transit:0  } },
-    { id:22,  groupId:5, name:"Pipelines ETL & intégration sources",      start:3,  duration:5, budget:210000000,  deps:[21],      ref:"§ 6.2", outcomes:{recettes:0.5, charge:500,  transit:0  } },
-    { id:23,  groupId:5, name:"API centrale — couche accès données",      start:7,  duration:4, budget:115000000,  deps:[22],      ref:"§ 6.3", outcomes:{recettes:0.5, charge:400,  transit:0.5} },
-    { id:24,  groupId:5, name:"Master Data Management (MDM)",             start:6,  duration:4, budget:130000000,  deps:[22],      ref:"§ 6.4", outcomes:{recettes:1.0, charge:600,  transit:0  } },
-    { id:25,  groupId:5, name:"Sécurité & conformité données",            start:5,  duration:6, budget:95000000,   deps:[21],      ref:"§ 6.5", outcomes:{recettes:0,   charge:200,  transit:0  } },
-
-    // ── G6 Gouvernance & Change Management ──────────────────────
-    { id:26,  groupId:6, name:"Comité de pilotage & charte projet",       start:1,  duration:1, budget:15000000,   deps:[],        ref:"§ 1.1", outcomes:{recettes:0,   charge:0,    transit:0  } },
-    { id:27,  groupId:6, name:"Plan communication & conduite changement", start:2,  duration:3, budget:40000000,   deps:[26],      ref:"§ 1.2", outcomes:{recettes:0,   charge:0,    transit:0  } },
-    { id:28,  groupId:6, name:"Formation leads & chefs de projet",        start:3,  duration:2, budget:35000000,   deps:[26],      ref:"§ 1.3", outcomes:{recettes:0,   charge:100,  transit:0  } },
-    { id:29,  groupId:6, name:"Audits intermédiaires (M6, M12)",          start:6,  duration:1, budget:20000000,   deps:[26],      ref:"§ 1.4", outcomes:{recettes:0,   charge:0,    transit:0  } },
-    { id:30,  groupId:6, name:"Clôture & rapport final projet",           start:15, duration:2, budget:28000000,   deps:[5,10,15,20,25], ref:"§ 1.5", outcomes:{recettes:0, charge:0, transit:0} }
-  ]
+  "budgetSummary": {
+    "scenarioA": 116000000,
+    "scenarioB_additionnel": 345500000,
+    "scenarioC_additionnel": 344000000,
+    "total": 805500000,
+    "note": "Gouvernance renforcée (80M FCFA), Module 7 Interopérabilité CEMAC (30M), fine-tuning LLM (20M). Vision ordinateur cadrée en phase expérimentale (30M)."
+  },
+  "kpiSection": "§ 2.3",
+  "budgetSection": "§ 2.4"
 };
 
-let nextTaskId  = 31;
-let nextGroupId = 7;
+let nextTaskId  = Math.max(...project.tasks.map(t => t.id))  + 1;
+let nextGroupId = Math.max(...project.groups.map(g => g.id)) + 1;
 
 // ════════════════════════════════════════════════════════════════════
 //  SCENARIO HELPERS
@@ -714,7 +1061,7 @@ function getActiveScenario() {
 function scenarioStats(sc) {
   const ids = new Set(sc.taskIds);
   const scTasks = project.tasks.filter(t => ids.has(t.id));
-  const budget  = scTasks.reduce((s,t) => s + t.budget, 0);
+  const budget  = scTasks.reduce((s, t) => s + t.budget, 0);
   const sched   = computeSchedule(scTasks);
   let minS = Infinity, maxE = 0;
   scTasks.forEach(t => {
@@ -727,28 +1074,38 @@ function scenarioStats(sc) {
   return { budget, dur, count: scTasks.length };
 }
 
+// ── Compute cumulative metrics for a set of visible tasks ────────────────────
+function computeMetrics(visibleTasks) {
+  let rev = 0, work = 0, transit = 0;
+  visibleTasks.forEach(t => {
+    if (t.revenueImpactPct       != null) rev     += t.revenueImpactPct;
+    if (t.workloadSavingHoursPerYear != null) work += t.workloadSavingHoursPerYear;
+    if (t.transitReductionPct    != null) transit  += t.transitReductionPct;
+  });
+  return { rev, work, transit };
+}
+
 // ════════════════════════════════════════════════════════════════════
 //  VISIBILITY  (scenario filter + group toggle + dep pull-in)
 // ════════════════════════════════════════════════════════════════════
 
 function getVisibleTasks() {
-  const sc     = getActiveScenario();
-  const scIds  = new Set(sc.taskIds);
+  const sc      = getActiveScenario();
+  const scIds   = new Set(sc.taskIds);
   const visGids = new Set(project.groups.filter(g => g.visible).map(g => g.id));
 
-  // Start: tasks in scenario AND in a visible group
   const direct = new Set(
     project.tasks.filter(t => scIds.has(t.id) && visGids.has(t.groupId)).map(t => t.id)
   );
 
-  // Transitively include deps that are also in the scenario (even if their group is off)
+  // Pull in deps transitively
   const required = new Set(direct);
   let changed = true;
   while (changed) {
     changed = false;
     project.tasks.forEach(t => {
       if (required.has(t.id)) {
-        t.deps.forEach(d => {
+        (t.deps || []).forEach(d => {
           if (!required.has(d) && scIds.has(d)) { required.add(d); changed = true; }
         });
       }
@@ -800,14 +1157,14 @@ function computeSchedule(visibleTasks) {
 function getTotalMonths(schedule, vt) {
   if (!vt || !vt.length) return 18;
   let mx = 0;
-  vt.forEach(t => { const e = (schedule[t.id]||t.start) + t.duration; if (e > mx) mx = e; });
+  vt.forEach(t => { const e = (schedule[t.id] || t.start) + t.duration; if (e > mx) mx = e; });
   return Math.max(mx + 1, 12);
 }
 
 function monthLabel(m) {
   const base = new Date(project.startDate);
   const d = new Date(base.getFullYear(), base.getMonth() + m - 1, 1);
-  return d.toLocaleString('fr-FR',{month:'short'}).replace('.','').toUpperCase();
+  return d.toLocaleString('fr-FR', { month: 'short' }).replace('.', '').toUpperCase();
 }
 
 function getQuarters(totalMonths) {
@@ -815,17 +1172,22 @@ function getQuarters(totalMonths) {
   for (let m = 1; m <= totalMonths; m++) {
     const base = new Date(project.startDate);
     const d = new Date(base.getFullYear(), base.getMonth() + m - 1, 1);
-    const q = `T${Math.ceil((d.getMonth()+1)/3)} ${d.getFullYear()}`;
-    if (q !== cur) { if (cur) qs.push({label:cur,count:cnt}); cur=q; cnt=1; } else cnt++;
+    const q = `T${Math.ceil((d.getMonth() + 1) / 3)} ${d.getFullYear()}`;
+    if (q !== cur) { if (cur) qs.push({ label: cur, count: cnt }); cur = q; cnt = 1; } else cnt++;
   }
-  if (cur) qs.push({label:cur,count:cnt});
+  if (cur) qs.push({ label: cur, count: cnt });
   return qs;
 }
 
 function formatBudget(n) {
-  if (n >= 1e9) return (n/1e9).toLocaleString('fr-FR',{maximumFractionDigits:2}) + ' Md FCFA';
-  if (n >= 1e6) return (n/1e6).toLocaleString('fr-FR',{maximumFractionDigits:0}) + ' M FCFA';
+  if (n >= 1e9) return (n / 1e9).toLocaleString('fr-FR', { maximumFractionDigits: 2 }) + ' Md FCFA';
+  if (n >= 1e6) return (n / 1e6).toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' M FCFA';
   return n.toLocaleString('fr-FR') + ' FCFA';
+}
+
+function formatWork(h) {
+  if (h >= 1000) return (h / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' k h/an';
+  return h.toLocaleString('fr-FR') + ' h/an';
 }
 
 // ════════════════════════════════════════════════════════════════════
@@ -836,7 +1198,6 @@ function render() {
   const vt       = getVisibleTasks();
   const schedule = computeSchedule(vt);
   renderScenarioTabs();
-  renderOutcomes(vt);
   renderGroupControls();
   renderSummary(schedule, vt);
   renderGantt(schedule, vt);
@@ -849,69 +1210,39 @@ function renderScenarioTabs() {
 
   project.scenarios.forEach(sc => {
     const stats    = scenarioStats(sc);
+    const scTasks  = project.tasks.filter(t => new Set(sc.taskIds).has(t.id));
+    const m        = computeMetrics(scTasks);
     const isActive = sc.id === project.activeScenario;
-    const badge    = SC_BADGE[sc.id] || { label: sc.id, bg:'#222', c:'#888' };
+    const badge    = SC_BADGE[sc.id] || { label: sc.id, bg: '#222', c: '#888' };
 
     const tab = document.createElement('div');
     tab.className = 'scenario-tab' + (isActive ? ' active' : '');
+
+    // Build KPI mini-badges for the tab
+    const kpiChips = [];
+    if (m.rev     > 0) kpiChips.push(`<span class="sc-kpi" style="background:#4ade8018;color:#4ade80">+${m.rev.toFixed(1)}% recettes</span>`);
+    if (m.work    > 0) kpiChips.push(`<span class="sc-kpi" style="background:#fb923c18;color:#fb923c">${formatWork(m.work)}</span>`);
+    if (m.transit > 0) kpiChips.push(`<span class="sc-kpi" style="background:#2dd4bf18;color:#2dd4bf">-${m.transit.toFixed(1)}% transit</span>`);
+
     tab.innerHTML = `
-      <div class="sc-letter">${sc.label}</div>
+      <div class="sc-letter">${sc.label || sc.id}</div>
       <div class="sc-name">${sc.name}</div>
-      <div class="sc-subtitle">${sc.subtitle}</div>
+      <div class="sc-subtitle">${sc.subtitle || ''}</div>
       <div class="sc-meta">${stats.dur} mois · ${formatBudget(stats.budget)} · ${stats.count} tâches</div>
+      ${kpiChips.length ? `<div class="sc-kpis">${kpiChips.join('')}</div>` : ''}
       <span class="sc-badge" style="background:${badge.bg};color:${badge.c}">${badge.label}</span>`;
     tab.onclick = () => { project.activeScenario = sc.id; render(); };
     bar.appendChild(tab);
   });
 }
 
-// ── Outcomes banner ──────────────────────────────────────────────────
-function renderOutcomes(vt) {
-  const bar = document.getElementById('outcomes-bar');
-  if (!bar) return;
-
-  // Sum outcomes across visible tasks
-  const totals = {};
-  (project.outcomes || []).forEach(oc => { totals[oc.id] = 0; });
-  vt.forEach(t => {
-    if (!t.outcomes) return;
-    (project.outcomes || []).forEach(oc => {
-      totals[oc.id] = (totals[oc.id] || 0) + (t.outcomes[oc.id] || 0);
-    });
-  });
-
-  bar.innerHTML = '<span class="outcomes-label">Résultats attendus</span>';
-
-  (project.outcomes || []).forEach(oc => {
-    const val = totals[oc.id] || 0;
-    const formatted = oc.unit === '%'
-      ? (val % 1 === 0 ? val.toFixed(0) : val.toFixed(1)) + ' %'
-      : val.toLocaleString('fr-FR') + ' ' + oc.unit;
-
-    const card = document.createElement('div');
-    card.className = 'outcome-card';
-    card.style.borderColor = oc.color + '55';
-    card.innerHTML = `
-      <style>.outcome-card[data-oc="${oc.id}"]::before { background: ${oc.color}; }</style>
-      <div class="oc-label">${oc.icon} ${oc.label}</div>
-      <div class="oc-value" style="color:${oc.color}">${
-        oc.unit === '%'
-          ? (val % 1 === 0 ? val.toFixed(0) : val.toFixed(1))
-          : val.toLocaleString('fr-FR')
-      }<span class="oc-unit">${oc.unit}</span></div>
-      <div class="oc-note">cumul des tâches actives</div>`;
-    card.dataset.oc = oc.id;
-    bar.appendChild(card);
-  });
-}
-
-// ── Group toggles ────────────────────────────────────────────────────
+// ── Group toggles ─────────────────────────────────────────────────────
 function renderGroupControls() {
-  const ctrl = document.getElementById('group-controls');
+  const ctrl  = document.getElementById('group-controls');
   ctrl.innerHTML = '<span class="ctrl-label">Filtrer par groupe :</span>';
 
-  const sc    = getActiveScenario();
-  const scIds = new Set(sc.taskIds);
+  const sc     = getActiveScenario();
+  const scIds  = new Set(sc.taskIds);
   const relevantGroups = project.groups.filter(g =>
     project.tasks.some(t => t.groupId === g.id && scIds.has(t.id))
   );
@@ -936,10 +1267,10 @@ function renderGroupControls() {
   });
 }
 
-// ── Summary ──────────────────────────────────────────────────────────
+// ── Summary pills (topbar) ────────────────────────────────────────────
 function renderSummary(schedule, vt) {
-  const sc  = getActiveScenario();
-  const bud = vt.reduce((s,t) => s + t.budget, 0);
+  const sc   = getActiveScenario();
+  const bud  = vt.reduce((s, t) => s + t.budget, 0);
   let minS = Infinity, maxE = 0;
   vt.forEach(t => {
     const s = schedule[t.id] || t.start;
@@ -949,14 +1280,20 @@ function renderSummary(schedule, vt) {
   });
   const dur  = vt.length ? (maxE - minS) : 0;
   const visG = project.groups.filter(g => g.visible && vt.some(t => t.groupId === g.id));
+
+  // Metrics computed ONLY on visible tasks (respects group filters too)
+  const m = computeMetrics(vt);
+
   document.getElementById('sum-scenario').textContent = sc.name;
   document.getElementById('sum-dur').textContent      = dur  ? `${dur} mois` : '—';
   document.getElementById('sum-bud').textContent      = bud  ? formatBudget(bud) : '—';
   document.getElementById('sum-tasks').textContent    = vt.length;
-  document.getElementById('sum-groups').textContent   = visG.length;
+  document.getElementById('sum-rev').textContent      = m.rev     > 0 ? `+${m.rev.toFixed(1)} %`      : '—';
+  document.getElementById('sum-work').textContent     = m.work    > 0 ? formatWork(m.work)             : '—';
+  document.getElementById('sum-transit').textContent  = m.transit > 0 ? `-${m.transit.toFixed(1)} %`   : '—';
 }
 
-// ── Gantt chart ───────────────────────────────────────────────────────
+// ── Gantt chart ────────────────────────────────────────────────────────
 function renderGantt(schedule, vt) {
   const body = document.getElementById('gantt-body');
   const svg  = document.getElementById('dep-svg');
@@ -976,17 +1313,16 @@ function renderGantt(schedule, vt) {
 
   const taskRowMap = {};
   let yOff = 0;
-
   const visGroups = project.groups.filter(g => vt.some(t => t.groupId === g.id));
 
   visGroups.forEach(group => {
-    const gTasks = vt.filter(t => t.groupId === group.id);
+    const gTasks   = vt.filter(t => t.groupId === group.id);
     if (!gTasks.length) return;
 
-    const gBud       = gTasks.reduce((s,t) => s + t.budget, 0);
+    const gBud      = gTasks.reduce((s, t) => s + t.budget, 0);
     const groupIsOff = !group.visible;
 
-    // ── Group header row
+    // Group header row
     const ghRow = document.createElement('div');
     ghRow.className = 'group-hdr-row';
     ghRow.style.opacity = groupIsOff ? '0.5' : '1';
@@ -997,16 +1333,16 @@ function renderGantt(schedule, vt) {
       <span class="gcolor" style="background:${group.color}"></span>
       <span style="color:${group.color};flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${group.name}">${group.name}</span>
       ${groupIsOff ? '<span style="font-size:8px;color:var(--accent);background:var(--surface3);border:1px solid var(--accent);border-radius:3px;padding:1px 5px;margin-right:4px;flex-shrink:0;">REQUIS</span>' : ''}
-      <span class="g-meta">${gTasks.length} tâche${gTasks.length>1?'s':''} · ${formatBudget(gBud)}</span>`;
+      <span class="g-meta">${gTasks.length} tâche${gTasks.length > 1 ? 's' : ''} · ${formatBudget(gBud)}</span>`;
 
-    const ghTl   = document.createElement('div'); ghTl.className = 'group-hdr-tl';
-    const tint   = document.createElement('div'); tint.className = 'group-tint'; tint.style.background = group.color;
+    const ghTl = document.createElement('div'); ghTl.className = 'group-hdr-tl';
+    const tint = document.createElement('div'); tint.className = 'group-tint'; tint.style.background = group.color;
     ghTl.appendChild(tint);
     ghRow.appendChild(ghLbl); ghRow.appendChild(ghTl);
     body.insertBefore(ghRow, svg);
     yOff += 38;
 
-    // ── Task rows
+    // Task rows
     gTasks.forEach(task => {
       const borrowed  = isBorrowed(task.id);
       const effStart  = schedule[task.id] || task.start;
@@ -1039,26 +1375,11 @@ function renderGantt(schedule, vt) {
       bar.style.width      = Math.max((ef - sf) * 100, 0.3) + '%';
       bar.style.background = group.color;
       bar.style.opacity    = borrowed ? '0.5' : '1';
-      // Store logical time positions for print recalculation
-      bar.dataset.startMonth = effStart;        // 1-based month this bar starts
-      bar.dataset.durMonths  = task.duration;   // duration in months
-      bar.dataset.totalM     = totalM;          // total months in timeline
 
-      // Build dep list for print
       const depNames = (task.deps || []).map(d => {
         const dt = project.tasks.find(t => t.id === d);
         return dt ? ('#' + d + ' ' + dt.name) : ('#' + d);
       }).join(', ');
-
-      // Build outcomes lines for print card
-      const ocLines = (project.outcomes || []).map(oc => {
-        const val = task.outcomes ? (task.outcomes[oc.id] || 0) : 0;
-        if (!val) return '';
-        const fVal = oc.unit === '%'
-          ? (val % 1 === 0 ? val.toFixed(0) : val.toFixed(1)) + ' %'
-          : val.toLocaleString('fr-FR') + ' ' + oc.unit;
-        return '<span class="bpi-oc-row"><span>' + oc.icon + ' ' + oc.label + '</span><span>' + fVal + '</span></span>';
-      }).filter(Boolean).join('');
 
       bar.innerHTML =
         '<span class="bar-txt">' + task.name + '</span>' +
@@ -1067,7 +1388,6 @@ function renderGantt(schedule, vt) {
           (task.ref ? '<span class="bpi-ref">' + task.ref + '</span>' : '') +
           '<span class="bpi-dates">M+' + effStart + ' → M+' + (effStart + task.duration - 1) + ' (' + task.duration + ' mois)</span>' +
           '<span class="bpi-budget">' + formatBudget(task.budget) + '</span>' +
-          (ocLines ? '<span class="bpi-outcomes">' + ocLines + '</span>' : '') +
           (depNames ? '<span class="bpi-deps">↳ ' + depNames + '</span>' : '') +
         '</span>';
 
@@ -1083,42 +1403,39 @@ function renderGantt(schedule, vt) {
     });
   });
 
-  // ── SVG dependency arrows ─────────────────────────────────────────
+  // SVG dependency arrows
   const rect = document.getElementById('gantt-inner').getBoundingClientRect();
   const LW   = 360;
   const TW   = Math.max(rect.width - LW - 2, 400);
   svg.setAttribute('width',  rect.width); svg.style.width  = rect.width  + 'px';
   svg.setAttribute('height', yOff);       svg.style.height = yOff + 'px';
 
-  const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
   svg.appendChild(defs);
 
   vt.forEach(task => {
-    if (!task.deps.length) return;
+    if (!(task.deps || []).length) return;
     const to = taskRowMap[task.id]; if (!to) return;
     task.deps.forEach((depId, di) => {
       const from = taskRowMap[depId]; if (!from) return;
-      const mid = `a${depId}_${task.id}_${di}`;
-      const mk  = document.createElementNS('http://www.w3.org/2000/svg','marker');
-      mk.setAttribute('id',mid); mk.setAttribute('markerWidth','7'); mk.setAttribute('markerHeight','7');
-      mk.setAttribute('refX','6'); mk.setAttribute('refY','3'); mk.setAttribute('orient','auto');
-      const poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
-      poly.setAttribute('points','0 0, 7 3, 0 6');
-      poly.setAttribute('fill', from.color); poly.setAttribute('opacity','0.7');
+      const mid  = `a${depId}_${task.id}_${di}`;
+      const mk   = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+      mk.setAttribute('id', mid); mk.setAttribute('markerWidth', '7'); mk.setAttribute('markerHeight', '7');
+      mk.setAttribute('refX', '6'); mk.setAttribute('refY', '3'); mk.setAttribute('orient', 'auto');
+      const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      poly.setAttribute('points', '0 0, 7 3, 0 6');
+      poly.setAttribute('fill', from.color); poly.setAttribute('opacity', '0.7');
       mk.appendChild(poly); defs.appendChild(mk);
 
       const x1 = LW + from.ef * TW, y1 = from.y;
       const x2 = LW + to.sf   * TW, y2 = to.y;
-      const bend = Math.min(50, Math.abs(x2-x1)*0.45 + 10);
+      const bend = Math.min(50, Math.abs(x2 - x1) * 0.45 + 10);
 
-      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('d', `M ${x1} ${y1} C ${x1+bend} ${y1}, ${x2-bend} ${y2}, ${x2} ${y2}`);
-      path.setAttribute('stroke', from.color);
-      path.setAttribute('stroke-width','1.5');
-      path.setAttribute('stroke-dasharray','5,3');
-      path.setAttribute('fill','none');
-      path.setAttribute('opacity','0.5');
-      path.setAttribute('marker-end', `url(#${mid})`);
+      path.setAttribute('stroke', from.color); path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('stroke-dasharray', '5,3'); path.setAttribute('fill', 'none');
+      path.setAttribute('opacity', '0.5'); path.setAttribute('marker-end', `url(#${mid})`);
       svg.appendChild(path);
     });
   });
@@ -1141,44 +1458,47 @@ function renderHeader(totalM) {
 }
 
 // ════════════════════════════════════════════════════════════════════
-//  TOOLTIP
+//  TOOLTIP — enriched with task metrics
 // ════════════════════════════════════════════════════════════════════
 
 function showTooltip(ev, task, group, effStart) {
   const tt = document.getElementById('tooltip');
-  const depLines = task.deps.length
-    ? task.deps.map(d => { const dt = project.tasks.find(t=>t.id===d); return '#'+d+(dt?' — '+dt.name:''); }).join('<br>')
+  const depLines = (task.deps || []).length
+    ? task.deps.map(d => { const dt = project.tasks.find(t => t.id === d); return `#${d}${dt ? ' — ' + dt.name : ''}`; }).join('<br>')
     : '—';
 
-  // Outcome contribution rows
-  const ocRows = (project.outcomes || []).map(oc => {
-    const val = task.outcomes ? (task.outcomes[oc.id] || 0) : 0;
-    if (!val) return '';
-    const fVal = oc.unit === '%'
-      ? (val % 1 === 0 ? val.toFixed(0) : val.toFixed(1)) + ' %'
-      : val.toLocaleString('fr-FR') + ' ' + oc.unit;
-    return '<div class="tt-oc-row"><span>' + oc.icon + ' ' + oc.label + '</span>'
-         + '<span style="color:' + oc.color + '">' + fVal + '</span></div>';
-  }).join('');
+  // Metric rows — only render if field exists
+  let metricsHtml = '';
+  if (task.revenueImpactPct != null || task.workloadSavingHoursPerYear != null || task.transitReductionPct != null) {
+    metricsHtml = '<div class="tt-metrics">';
+    if (task.revenueImpactPct != null)
+      metricsHtml += `<div class="tt-metric rev"><span class="tm-label">📈 Amélioration recettes</span><span class="tm-val">+${task.revenueImpactPct.toFixed(2)} %</span></div>`;
+    if (task.workloadSavingHoursPerYear != null)
+      metricsHtml += `<div class="tt-metric work"><span class="tm-label">⏱ Charge évitée</span><span class="tm-val">${formatWork(task.workloadSavingHoursPerYear)}</span></div>`;
+    if (task.transitReductionPct != null)
+      metricsHtml += `<div class="tt-metric trnst"><span class="tm-label">🚢 Réduction transit</span><span class="tm-val">-${task.transitReductionPct.toFixed(1)} %</span></div>`;
+    metricsHtml += '</div>';
+  }
 
-  tt.innerHTML =
-    '<div class="tt-name" style="color:' + group.color + '">' + task.name + '</div>'
-    + '<div class="tt-row"><span>Groupe</span><span>' + group.name + '</span></div>'
-    + '<div class="tt-row"><span>Début</span><span>M+' + effStart + '</span></div>'
-    + '<div class="tt-row"><span>Durée</span><span>' + task.duration + ' mois</span></div>'
-    + '<div class="tt-row"><span>Fin</span><span>M+' + (effStart + task.duration - 1) + '</span></div>'
-    + '<div class="tt-row"><span>Budget</span><span>' + formatBudget(task.budget) + '</span></div>'
-    + (task.ref ? '<div class="tt-section"><b>Réf. document</b><span class="tt-ref-tag">' + task.ref + '</span></div>' : '')
-    + (ocRows ? '<div class="tt-outcomes"><b>Contributions</b>' + ocRows + '</div>' : '')
-    + '<div class="tt-section"><b>Dépendances</b>' + depLines + '</div>';
-
+  tt.innerHTML = `
+    <div class="tt-name" style="color:${group.color}">${task.name}</div>
+    <div class="tt-row"><span>Groupe</span><span>${group.name}</span></div>
+    <div class="tt-row"><span>Début</span><span>M+${effStart}</span></div>
+    <div class="tt-row"><span>Durée</span><span>${task.duration} mois</span></div>
+    <div class="tt-row"><span>Fin</span><span>M+${effStart + task.duration - 1}</span></div>
+    <div class="tt-row"><span>Budget</span><span>${formatBudget(task.budget)}</span></div>
+    ${task.ref      ? `<div class="tt-section"><b>Réf. document</b><span class="tt-ref-tag">${task.ref}</span></div>` : ''}
+    ${task.taskCode ? `<div class="tt-row"><span>Code tâche</span><span style="color:var(--text-dim)">${task.taskCode}</span></div>` : ''}
+    ${task.note     ? `<div class="tt-section"><b>Note</b>${task.note}</div>` : ''}
+    ${metricsHtml}
+    <div class="tt-section"><b>Dépendances</b>${depLines}</div>`;
   tt.classList.add('show');
   moveTooltip(ev);
 }
 function moveTooltip(ev) {
   const tt = document.getElementById('tooltip');
-  tt.style.left = Math.min(ev.clientX+18, window.innerWidth-260)+'px';
-  tt.style.top  = Math.min(ev.clientY+18, window.innerHeight-260)+'px';
+  tt.style.left = Math.min(ev.clientX + 18, window.innerWidth  - 340) + 'px';
+  tt.style.top  = Math.min(ev.clientY + 18, window.innerHeight - 300) + 'px';
 }
 function hideTooltip() { document.getElementById('tooltip').classList.remove('show'); }
 
@@ -1188,7 +1508,7 @@ function hideTooltip() { document.getElementById('tooltip').classList.remove('sh
 
 function deleteTask(id) {
   project.tasks = project.tasks.filter(t => t.id !== id);
-  project.tasks.forEach(t => { t.deps = t.deps.filter(d => d !== id); });
+  project.tasks.forEach(t => { t.deps = (t.deps || []).filter(d => d !== id); });
   project.scenarios.forEach(sc => { sc.taskIds = sc.taskIds.filter(i => i !== id); });
   render();
 }
@@ -1200,20 +1520,20 @@ function addTask() {
   const dur    = parseInt(document.getElementById('inp-dur').value);
   const budget = parseFloat(document.getElementById('inp-budget').value) || 0;
   const dRaw   = document.getElementById('inp-deps').value.trim();
-  const deps   = dRaw ? dRaw.split(',').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n)) : [];
+  const deps   = dRaw ? dRaw.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n)) : [];
   const ref    = document.getElementById('inp-ref').value.trim();
   if (!name || !start || !dur) { alert('Nom, mois de début et durée sont requis.'); return; }
   const newId = nextTaskId++;
-  project.tasks.push({ id:newId, groupId:gid, name, start, duration:dur, budget, deps, ref: ref||'' });
+  project.tasks.push({ id: newId, groupId: gid, name, start, duration: dur, budget, deps, ref: ref || '' });
   getActiveScenario().taskIds.push(newId);
-  ['inp-name','inp-budget','inp-deps','inp-ref'].forEach(id => { document.getElementById(id).value=''; });
+  ['inp-name', 'inp-budget', 'inp-deps', 'inp-ref'].forEach(id => { document.getElementById(id).value = ''; });
   render();
 }
 
 function addGroup() {
   const name = prompt('Nom du nouveau groupe :');
   if (!name) return;
-  project.groups.push({ id:nextGroupId++, name, color: PALETTE[nextGroupId % PALETTE.length], visible:true });
+  project.groups.push({ id: nextGroupId++, name, color: PALETTE[nextGroupId % PALETTE.length], visible: true });
   render();
 }
 
@@ -1237,16 +1557,15 @@ function applyJson() {
   const errEl = document.getElementById('json-err');
   try {
     const p = JSON.parse(document.getElementById('json-editor').value);
-    if (!Array.isArray(p.groups)||!Array.isArray(p.tasks)||!Array.isArray(p.scenarios))
+    if (!Array.isArray(p.groups) || !Array.isArray(p.tasks) || !Array.isArray(p.scenarios))
       throw new Error('"groups", "tasks" et "scenarios" doivent être des tableaux.');
-    p.groups.forEach(g => { if (!g.id||!g.name) throw new Error('Groupe invalide'); if(g.visible===undefined) g.visible=true; });
-    p.tasks.forEach(t => { if (!t.id||!t.name||!t.start||!t.duration) throw new Error('Tâche invalide: '+t.id); if(!t.deps) t.deps=[]; if(!t.budget) t.budget=0; if(!t.ref) t.ref=''; if(!t.outcomes) t.outcomes={}; });
-    if (!p.outcomes) p.outcomes = [];
-    p.scenarios.forEach(sc => { if (!sc.id||!sc.name) throw new Error('Scénario invalide'); if(!sc.taskIds) sc.taskIds=[]; });
+    p.groups.forEach(g => { if (!g.id || !g.name) throw new Error('Groupe invalide'); if (g.visible == null) g.visible = true; });
+    p.tasks.forEach(t  => { if (!t.id || !t.name || !t.start || !t.duration) throw new Error('Tâche invalide: ' + t.id); if (!t.deps) t.deps = []; if (!t.budget) t.budget = 0; if (!t.ref) t.ref = ''; });
+    p.scenarios.forEach(sc => { if (!sc.id || !sc.name) throw new Error('Scénario invalide'); if (!sc.taskIds) sc.taskIds = []; });
     project = p;
     if (!project.activeScenario) project.activeScenario = project.scenarios[0].id;
-    nextTaskId  = Math.max(...project.tasks.map(t=>t.id),  nextTaskId-1)  + 1;
-    nextGroupId = Math.max(...project.groups.map(g=>g.id), nextGroupId-1) + 1;
+    nextTaskId  = Math.max(...project.tasks.map(t  => t.id),  nextTaskId  - 1) + 1;
+    nextGroupId = Math.max(...project.groups.map(g => g.id), nextGroupId - 1) + 1;
     errEl.classList.remove('show');
     render();
   } catch(e) {
@@ -1256,12 +1575,12 @@ function applyJson() {
 }
 
 document.getElementById('json-editor').addEventListener('keydown', e => {
-  if ((e.ctrlKey||e.metaKey) && e.key==='s') { e.preventDefault(); applyJson(); }
-  if (e.key==='Tab') {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); applyJson(); }
+  if (e.key === 'Tab') {
     e.preventDefault();
-    const ta=e.target, s=ta.selectionStart, end=ta.selectionEnd;
-    ta.value=ta.value.substring(0,s)+'  '+ta.value.substring(end);
-    ta.selectionStart=ta.selectionEnd=s+2;
+    const ta = e.target, s = ta.selectionStart, end = ta.selectionEnd;
+    ta.value = ta.value.substring(0, s) + '  ' + ta.value.substring(end);
+    ta.selectionStart = ta.selectionEnd = s + 2;
   }
 });
 
@@ -1286,191 +1605,6 @@ function toggleTheme() {
     });
   }
 })();
-
-// ════════════════════════════════════════════════════════════════════
-//  PRINT PREPARATION
-//  Before printing: convert each .task-bar from position:absolute
-//  (left: X%) to position:relative with margin-left: X% so the bar
-//  is in normal flow and the row can grow to fit its content.
-//  After printing: restore to absolute positioning.
-// ════════════════════════════════════════════════════════════════════
-
-// ════════════════════════════════════════════════════════════════════
-//  PRINT PREPARATION
-//
-//  Strategy: keep bars at position:absolute so left/width % remain
-//  accurate for time alignment. Instead, measure how tall each bar's
-//  content needs to be (by briefly rendering it at its actual pixel
-//  width in a hidden off-screen container), then set that height
-//  explicitly on the bar, the .task-tl, and the .task-row so every
-//  row is tall enough to show all content.
-// ════════════════════════════════════════════════════════════════════
-
-// ── Minimum readable bar width in print (px) ──────────────────────
-// This is the target width for the narrowest task's bar.
-// JS will enforce this by setting min-width on each month column,
-// making the timeline as wide as needed.
-const PRINT_MIN_BAR_PX = 110; // ~1.5 inches at 72dpi
-
-function calcPrintColMinWidth(vt, schedule, totalM) {
-  // Find the smallest task duration among visible tasks
-  let minDur = Infinity;
-  vt.forEach(t => { if (t.duration < minDur) minDur = t.duration; });
-  if (!isFinite(minDur) || minDur < 1) minDur = 1;
-
-  // How many month-columns does the smallest bar span?
-  // That bar occupies minDur columns out of totalM.
-  // We want minDur * colWidth >= PRINT_MIN_BAR_PX
-  // => colWidth >= PRINT_MIN_BAR_PX / minDur
-  const minColW = Math.ceil(PRINT_MIN_BAR_PX / minDur);
-
-  // Also ensure it's at least a comfortable 36px regardless
-  return Math.max(minColW, 36);
-}
-
-function prepareForPrint() {
-  document.body.classList.add('printing');
-
-  // ── Step 1: slim label columns ─────────────────────────────────
-  const SLIM = '52px';
-  document.querySelectorAll('.task-lbl').forEach(el => {
-    el.dataset.origW = el.style.width; el.dataset.origMW = el.style.minWidth;
-    el.style.width = SLIM; el.style.minWidth = SLIM;
-  });
-  document.querySelectorAll('.g-label-hdr, .group-hdr-lbl').forEach(el => {
-    el.dataset.origW = el.style.width; el.dataset.origMW = el.style.minWidth;
-    el.style.width = SLIM; el.style.minWidth = SLIM;
-  });
-
-  // ── Step 2: enforce min column width so narrowest bar is readable ─
-  // Read current visible tasks + schedule from the rendered gantt
-  const vt       = getVisibleTasks();
-  const schedule = computeSchedule(vt);
-  const totalM   = getTotalMonths(schedule, vt);
-  const colMinW  = calcPrintColMinWidth(vt, schedule, totalM);
-
-  // Set min-width on every month header cell — flex container will expand
-  document.querySelectorAll('.g-month').forEach(el => {
-    el.dataset.origMinW = el.style.minWidth;
-    el.style.minWidth = colMinW + 'px';
-  });
-  // Mirror onto grid columns so grid lines stay aligned with headers
-  document.querySelectorAll('.grid-col').forEach(el => {
-    el.dataset.origMinW = el.style.minWidth;
-    el.style.minWidth = colMinW + 'px';
-  });
-  // Quarter cells: their flex span is set via flex property, not width,
-  // so they'll stretch naturally. But set min-width too for safety.
-  document.querySelectorAll('.g-quarter').forEach(el => {
-    el.dataset.origMinW = el.style.minWidth;
-    // quarter spans N months, so min-width = N * colMinW
-    const span = parseInt(el.style.flex) || 1;
-    el.style.minWidth = (span * colMinW) + 'px';
-  });
-
-  // ── Step 3: convert bar positions from % to px ────────────────
-  // The % values were computed against the original screen layout width.
-  // Now that colMinW is enforced, bars must be repositioned using
-  // exact pixel values: left = (startMonth-1) * colMinW,
-  //                     width = duration * colMinW  (minus 1px gap)
-  document.querySelectorAll('.task-bar').forEach(bar => {
-    bar.dataset.origLeft  = bar.style.left;
-    bar.dataset.origWidth = bar.style.width;
-    const startM = parseInt(bar.dataset.startMonth) || 1;
-    const durM   = parseInt(bar.dataset.durMonths)  || 1;
-    bar.style.left  = ((startM - 1) * colMinW) + 'px';
-    bar.style.width = Math.max(durM * colMinW - 1, 4) + 'px';
-  });
-
-  // ── Step 4: measure bar content height and set row heights ──────
-  // Bars now have accurate pixel widths — use a probe to measure
-  // how tall the content needs to be, then set heights on rows.
-  const probe = document.createElement('div');
-  probe.style.cssText = [
-    'position:fixed', 'visibility:hidden', 'pointer-events:none',
-    'top:-9999px', 'left:0',
-    'display:flex', 'flex-direction:column', 'gap:2px',
-    'padding:5px 7px', 'border-radius:4px',
-    'font-family:Syne,sans-serif', 'box-sizing:border-box',
-    'overflow:hidden'
-  ].join(';');
-  document.body.appendChild(probe);
-
-  document.querySelectorAll('.task-row').forEach(row => {
-    const tl  = row.querySelector('.task-tl');
-    const bar = row.querySelector('.task-bar');
-    if (!tl || !bar) return;
-
-    bar.dataset.origH   = bar.style.height;
-    bar.dataset.origTop = bar.style.top;
-    tl.dataset.origH    = tl.style.height;
-    row.dataset.origH   = row.style.height;
-
-    // Bar pixel width is now absolute — read it directly
-    const barW = parseFloat(bar.style.width) || 80;
-
-    const info = bar.querySelector('.bar-print-info');
-    if (!info) return;
-
-    probe.style.width = Math.max(barW, 40) + 'px';
-    probe.innerHTML   = info.outerHTML;
-
-    // Apply print font sizes so measurement matches rendered output
-    const pName = probe.querySelector('.bpi-name');
-    const pRef  = probe.querySelector('.bpi-ref');
-    const pDate = probe.querySelector('.bpi-dates');
-    const pBud  = probe.querySelector('.bpi-budget');
-    const pDeps = probe.querySelector('.bpi-deps');
-    if (pName) pName.style.cssText = 'font-size:8px;font-weight:700;line-height:1.25;white-space:normal;word-break:break-word;color:#fff;';
-    if (pRef)  pRef.style.cssText  = 'font-size:6.5px;display:inline-block;padding:1px 3px;color:#fff;';
-    if (pDate) pDate.style.cssText = 'font-size:6.5px;color:#fff;';
-    if (pBud)  pBud.style.cssText  = 'font-size:7px;font-weight:700;color:#fff;';
-    if (pDeps) pDeps.style.cssText = 'font-size:6px;white-space:normal;word-break:break-word;line-height:1.35;color:#fff;';
-
-    const contentH = probe.scrollHeight;
-    const rowH     = contentH + 10; // 4px top + 6px bottom breathing room
-
-    bar.style.height = contentH + 'px';
-    bar.style.top    = '4px';
-    tl.style.height  = rowH + 'px';
-    row.style.height = rowH + 'px';
-  });
-
-  probe.remove();
-}
-
-function restoreAfterPrint() {
-  document.body.classList.remove('printing');
-
-  // Restore column min-widths
-  document.querySelectorAll('.g-month, .grid-col, .g-quarter').forEach(el => {
-    el.style.minWidth = el.dataset.origMinW || '';
-  });
-
-  // Restore bar positions and row heights
-  document.querySelectorAll('.task-row').forEach(row => {
-    const tl  = row.querySelector('.task-tl');
-    const bar = row.querySelector('.task-bar');
-    if (!tl || !bar) return;
-    bar.style.left   = bar.dataset.origLeft  || '';
-    bar.style.width  = bar.dataset.origWidth || '';
-    bar.style.height = bar.dataset.origH     || '';
-    bar.style.top    = bar.dataset.origTop   || '';
-    tl.style.height  = tl.dataset.origH      || '';
-    row.style.height = row.dataset.origH      || '';
-  });
-
-  // Restore label widths
-  document.querySelectorAll('.task-lbl').forEach(el => {
-    el.style.width = el.dataset.origW || ''; el.style.minWidth = el.dataset.origMW || '';
-  });
-  document.querySelectorAll('.g-label-hdr, .group-hdr-lbl').forEach(el => {
-    el.style.width = el.dataset.origW || ''; el.style.minWidth = el.dataset.origMW || '';
-  });
-}
-
-window.addEventListener('beforeprint', prepareForPrint);
-window.addEventListener('afterprint',  restoreAfterPrint);
 
 // ════════════════════════════════════════════════════════════════════
 let resizeTimer;
